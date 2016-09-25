@@ -1,6 +1,9 @@
 package edu.aurora.oilchange.ui;
 
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 /**
@@ -8,7 +11,12 @@ import javafx.stage.Stage;
  */
 public class AppLauncher extends Application {
     public void start(Stage primaryStage) throws Exception {
-        System.out.println("Application launched");
-        System.exit(0);
+        BorderPane root = new BorderPane();
+        FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("main.fxml"));
+        root.setCenter(mainLoader.load());
+
+        Scene scene = new Scene(root);
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
 }
