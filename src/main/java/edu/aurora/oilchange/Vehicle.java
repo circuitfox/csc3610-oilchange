@@ -8,38 +8,38 @@ public class Vehicle {
 	
 	
 	
-	public Vehicle(){
+	public Vehicle() {
 		//default
 	}
-	public Vehicle(String makeIn, String modelIn, String yearIn){
+	public Vehicle(String make, String model, String year) {
 		
-		this.make = makeIn;
-		this.model = modelIn;
-		this.year = yearIn;
+		this.make = make;
+		this.model = model;
+		this.year = year;
 		
 		
 	}
 	
-	public void setMake(String makeIn){
-		this.make = makeIn;
+	public void setMake(String make) {
+		this.make = make;
 	}
-	public void setModel(String modelIn){
-		this.model = modelIn;
+	public void setModel(String model) {
+		this.model = model;
 	}
-	public void setYear(String yearIn){
-		this.year = yearIn;
+	public void setYear(String year) {
+		this.year = year;
 	}
-	public String getMake(){
+	public String getMake() {
 		return this.make;
 	}
-	public String getModel(){
+	public String getModel() {
 		return this.model;
 	}
-	public String getYear(){
+	public String getYear() {
 		return this.year;
 	}
 	@Override
-	public String toString(){
+	public String toString() {
 		return this.getMake() + ", " + this.getModel() + ", " + this.getYear();
 	}
 }
