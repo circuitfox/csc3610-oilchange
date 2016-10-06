@@ -17,7 +17,7 @@ public class AppLauncher extends Application {
 
     public void start(Stage primaryStage) throws Exception {
         BorderPane root = new BorderPane();
-        FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("main.fxml"));
+        FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("UpdateView.fxml"));
         root.setCenter(mainLoader.load());
 
         Scene scene = new Scene(root);
