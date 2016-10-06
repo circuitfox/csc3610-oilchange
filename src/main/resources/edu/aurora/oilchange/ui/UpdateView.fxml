@@ -10,7 +10,7 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity"
 	minHeight="-Infinity" minWidth="-Infinity" prefHeight="401.0"
 	prefWidth="537.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="edu.aurora.oilchange.controller.UpdateViewController">
+	fx:controller="edu.aurora.oilchange.controller.UpdateController">
 	<children>
 		<HBox layoutX="387.0" layoutY="363.0" prefHeight="64.0"
 			prefWidth="128.0" spacing="10.0">
