@@ -4,10 +4,8 @@ import edu.aurora.oilchange.controller.MainController;
 import edu.aurora.oilchange.db.Database;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -19,9 +17,6 @@ import java.util.concurrent.Executors;
  * Initializes FXML loaders and controllers and launches the GUI.
  */
 public class AppLauncher extends Application {
-    private final static int SCALE_2X_HORIZONTAL = 2560;
-    private final static int SCALE_2X_VERTICAL = 1440;
-
     public void start(Stage primaryStage) {
         Properties dbProperties = new Properties();
         BorderPane root = new BorderPane();
@@ -60,13 +55,7 @@ public class AppLauncher extends Application {
 
     // scale to 2x for displays >= SCALE_2X_HORIZONTAL and SCALE_2X_VERTICAL
     private void scale(Scene scene) {
-        Rectangle2D bounds = Screen.getPrimary().getBounds();
-        String scaleStylesheet;
-        if (bounds.getWidth() >= SCALE_2X_HORIZONTAL && bounds.getHeight() >= SCALE_2X_VERTICAL) {
-            scaleStylesheet = "qhd.css";
-        } else {
-            scaleStylesheet = "fhd.css";
-        }
+        String scaleStylesheet = DisplayScaler.prefix(".css");
         scene.getStylesheets().add(getClass().getResource("css/" + scaleStylesheet).toExternalForm());
     }
 }
