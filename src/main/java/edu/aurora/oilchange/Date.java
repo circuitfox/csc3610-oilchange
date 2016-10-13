@@ -6,8 +6,8 @@ import java.util.Calendar;
  * A date with month, day, and year.
  */
 public class Date {
-    private static final int MAX_MONTH = 12;
-    private static final int MAX_DAY = 31;
+    public static final int MAX_MONTH = 12;
+    public static final int MAX_DAY = 31;
 
     /** The month of the year, from 1 (January) to 12 (December) */
     private int month;
