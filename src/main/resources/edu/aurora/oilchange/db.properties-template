@@ -1,0 +1,4 @@
+# copy this file as db.properties and fill in the fields below for your system.
+# this user should have privileges to change the 'oilchange' database on the system.
+db.user = # insert mysql username
+db.pass = # insert mysql password
