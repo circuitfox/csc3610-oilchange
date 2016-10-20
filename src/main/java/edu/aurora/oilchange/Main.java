@@ -2,6 +2,8 @@ package edu.aurora.oilchange;
 
 import javafx.application.Application;
 
+import java.util.HashMap;
+
 import edu.aurora.oilchange.ui.AppLauncher;
 
 /**
@@ -9,7 +11,14 @@ import edu.aurora.oilchange.ui.AppLauncher;
  * and run the javafx app.
  */
 public class Main {
-    public static void main(String[] args) {
-        Application.launch(AppLauncher.class, args);
-    }
+	public static Oil oil;
+	public static Vehicle vehic;
+	public static Customer cust;
+	public static HashMap vehicles;
+
+	public static void main(String[] args) {
+		Application.launch(AppLauncher.class, args);
+		vehicles = new HashMap<Integer, Vehicle>();
+
+	}
 }

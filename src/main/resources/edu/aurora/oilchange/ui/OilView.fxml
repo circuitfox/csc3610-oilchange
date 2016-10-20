@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity"
+	minHeight="-Infinity" minWidth="-Infinity" prefHeight="260.0"
+	prefWidth="412.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="edu.aurora.oilchange.controller.OilController">
+	<children>
+		<Label layoutX="172.0" layoutY="14.0" text="Oil Selection:" />
+		<Label layoutX="14.0" layoutY="75.0" text="Type:" />
+		<Label layoutX="14.0" layoutY="112.0" text="Brand:" />
+		<Label layoutX="14.0" layoutY="149.0" text="Quantity:" />
+		<Label layoutX="139.0" layoutY="112.0" text="Filter Cost: $" />
+		<Label layoutX="14.0" layoutY="186.0" text="Price: $" />
+		<Label layoutX="140.0" layoutY="75.0" text="Filter Brand:" />
+		<TextField fx:id="txtOilType" layoutX="52.0" layoutY="71.0"
+			prefHeight="25.0" prefWidth="80.0" />
+		<TextField fx:id="txtOilBrand" layoutX="52.0" layoutY="108.0"
+			prefHeight="25.0" prefWidth="80.0" />
+		<TextField fx:id="txtOilQuantity" layoutX="66.0" layoutY="145.0"
+			prefHeight="25.0" prefWidth="64.0" />
+		<TextField fx:id="txtOilPrice" layoutX="52.0" layoutY="181.0"
+			prefHeight="25.0" prefWidth="78.0" />
+		<TextField fx:id="txtFilterBrand" layoutX="209.0" layoutY="71.0"
+			prefHeight="25.0" prefWidth="80.0" />
+		<TextField fx:id="txtFilterCost" layoutX="209.0" layoutY="108.0"
+			prefHeight="25.0" prefWidth="80.0" />
+		<Button fx:id="btnNext" layoutX="346.0" layoutY="221.0"
+			mnemonicParsing="false" prefHeight="25.0" prefWidth="49.0" text="Next" />
+		<Button fx:id="btnCancel" layoutX="285.0" layoutY="221.0"
+			mnemonicParsing="false" text="Cancel" />
+		<Button fx:id="btnBack" layoutX="223.0" layoutY="221.0"
+			mnemonicParsing="false" prefHeight="25.0" prefWidth="52.0" text="Back" />
+		<TextArea fx:id="txtWarning" layoutX="211.0" layoutY="139.0"
+			prefHeight="63.0" prefWidth="148.0" />
+	</children>
+</AnchorPane>
