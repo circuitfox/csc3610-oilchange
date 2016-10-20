@@ -1,20 +1,25 @@
 package edu.aurora.oilchange;
 
+import java.time.LocalDate;
+import java.util.Date;
+
 public class Vehicle {
 	private String make;
 	private String model;
 	private String year;
+	private LocalDate date;
 
 	public Vehicle() {
-		//default
+		// default
 	}
 
-	public Vehicle(String make, String model, String year) {
+	public Vehicle(String make, String model, String year, LocalDate date) {
 		this.make = make;
 		this.model = model;
 		this.year = year;
+		this.date = date;
 	}
-	
+
 	public void setMake(String make) {
 		this.make = make;
 	}
@@ -39,8 +44,17 @@ public class Vehicle {
 		return this.year;
 	}
 
+	public LocalDate getDate() {
+		return date;
+	}
+
+	public void setDate(LocalDate date) {
+		this.date = date;
+	}
+
 	@Override
 	public String toString() {
-		return this.getMake() + ", " + this.getModel() + ", " + this.getYear();
+		return "Vehicle [make=" + make + ", model=" + model + ", year=" + year + ", date=" + date.toString() + "]";
 	}
+
 }

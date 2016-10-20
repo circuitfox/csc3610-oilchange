@@ -35,7 +35,10 @@ public class UpdateController {
 	private Label lblCost;
 
     @FXML
-    private void initialize() {
-
+    private void initialize() 
+    {
+    	btnOk.setOnAction(e -> {
+    		
+    	});
     }
 }
