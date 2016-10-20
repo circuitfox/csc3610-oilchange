@@ -107,4 +107,21 @@ public class DateModel {
     public void setYear(int year) {
         this.year.set(year);
     }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+
+        month.set(date.getMonth());
+        day.set(date.getDay());
+        year.set(date.getYear());
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Date: %d/%d/%d\n", month.get(), day.get(), year.get());
+    }
 }

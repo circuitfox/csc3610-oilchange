@@ -59,4 +59,25 @@ public class VehicleModel {
     public void setYear(String year) {
         this.year.set(year);
     }
+
+    public Vehicle getVehicle() {
+        return vehicle;
+    }
+
+    public void setVehicle(Vehicle vehicle) {
+        this.vehicle = vehicle;
+
+        make.set(vehicle.getMake());
+        model.set(vehicle.getModel());
+        year.set(vehicle.getYear());
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("Vehicle:\n");
+        sb.append("\tMake: ").append(make.get()).append("\n");
+        sb.append("\tModel: ").append(model.get()).append("\n");
+        sb.append("\tYear: ").append(year.get()).append("\n");
+        return sb.toString();
+    }
 }
