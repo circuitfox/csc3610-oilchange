@@ -1,8 +1,5 @@
 package edu.aurora.oilchange.ui;
 
-import java.io.IOException;
-
-import edu.aurora.oilchange.controller.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
@@ -24,6 +21,7 @@ public class AppLauncher extends Application {
 	public static AnchorPane summary;
 	public static AnchorPane update;
 
+	// TODO: Clean up this.
 	public void start(Stage primaryStage) throws Exception {
 		FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("MainView.fxml"));
 		FXMLLoader vehicleLoader = new FXMLLoader(getClass().getResource("VehicleView.fxml"));

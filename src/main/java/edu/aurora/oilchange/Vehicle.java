@@ -1,8 +1,8 @@
 package edu.aurora.oilchange;
 
 import java.time.LocalDate;
-import java.util.Date;
 
+// TODO: Remove date
 public class Vehicle {
 	private String make;
 	private String model;

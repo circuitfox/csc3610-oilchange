@@ -22,7 +22,7 @@ public class UpdateController {
 	@FXML
 	private TextField txtOilBrand;
 	@FXML
-	private TextField txtOilQuant;
+	private TextField txtOilQuantity;
 	@FXML
 	private TextField txtOilPrice;
 	@FXML
@@ -35,8 +35,8 @@ public class UpdateController {
 	private Label lblCost;
 
     @FXML
-    private void initialize() 
-    {
+    private void initialize() {
+		// TODO: Use models, validation, etc.
     	btnOk.setOnAction(e -> {
     		
     	});

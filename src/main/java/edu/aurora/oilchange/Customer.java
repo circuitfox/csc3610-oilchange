@@ -1,7 +1,7 @@
 package edu.aurora.oilchange;
 
 public class Customer {
-	private Vehicle vehiclle;
+	private Vehicle vehicle;
 	private Oil oil;
 	private int idNum;
 
@@ -9,18 +9,18 @@ public class Customer {
 
 	}
 
-	public Customer(Vehicle vehic, Oil oil, int idNum) {
-		this.vehiclle = vehic;
+	public Customer(Vehicle vehicle, Oil oil, int idNum) {
+		this.vehicle = vehicle;
 		this.oil = oil;
 		this.idNum = idNum;
 	}
 
-	public Vehicle getVehiclle() {
-		return vehiclle;
+	public Vehicle getVehicle() {
+		return vehicle;
 	}
 
-	public void setVehiclle(Vehicle vehiclle) {
-		this.vehiclle = vehiclle;
+	public void setVehicle(Vehicle vehicle) {
+		this.vehicle = vehicle;
 	}
 
 	public Oil getOil() {
@@ -41,6 +41,6 @@ public class Customer {
 
 	@Override
 	public String toString() {
-		return "Customer [vehiclle=" + vehiclle + ", oil=" + oil + ", idNum=" + idNum + "]";
+		return "Customer [vehicle=" + vehicle + ", oil=" + oil + ", idNum=" + idNum + "]";
 	}
 }

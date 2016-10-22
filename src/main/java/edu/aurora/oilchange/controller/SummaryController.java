@@ -4,7 +4,6 @@ import edu.aurora.oilchange.Customer;
 import edu.aurora.oilchange.Main;
 import edu.aurora.oilchange.ui.AppLauncher;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
@@ -38,15 +37,15 @@ public class SummaryController {
 
 	@FXML
 	private void initialize() {
+		// TODO: use models
 		btnBack.setOnAction(e -> {
-			AppLauncher.root.setCenter(null);
-			AppLauncher.root.setCenter(((Node) AppLauncher.oil));
+			AppLauncher.root.setCenter(AppLauncher.oil);
 		});
 		btnRefresh.setOnAction(e -> {
-			lblMake.setText(Main.vehic.getMake());
-			lblModel.setText(Main.vehic.getModel());
-			lblYear.setText(Main.vehic.getYear());
-			lblDate.setText(Main.vehic.getDate().toString());
+			lblMake.setText(Main.vehicle.getMake());
+			lblModel.setText(Main.vehicle.getModel());
+			lblYear.setText(Main.vehicle.getYear());
+			lblDate.setText(Main.vehicle.getDate().toString());
 			lblOilType.setText(Main.oil.getOilType());
 			lblOilBrand.setText(Main.oil.getOilBrand());
 			lblOilCost.setText(Main.oil.getPricePerQuart().toString());
@@ -56,7 +55,7 @@ public class SummaryController {
 		});
 		btnSave.setOnAction(e -> {
 			int id = (int) (Math.random() * 999999);
-			Main.cust = new Customer(Main.vehic, Main.oil, id);
+			Main.customer = new Customer(Main.vehicle, Main.oil, id);
 			System.out.println("Information stored. Customer ID is " + id);
 		});
 

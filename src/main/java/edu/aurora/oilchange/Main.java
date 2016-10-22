@@ -12,8 +12,8 @@ import edu.aurora.oilchange.ui.AppLauncher;
  */
 public class Main {
 	public static Oil oil;
-	public static Vehicle vehic;
-	public static Customer cust;
+	public static Vehicle vehicle;
+	public static Customer customer;
 	public static HashMap vehicles;
 
 	public static void main(String[] args) {

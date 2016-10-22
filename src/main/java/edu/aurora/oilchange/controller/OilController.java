@@ -1,15 +1,15 @@
 package edu.aurora.oilchange.controller;
 
-import java.math.BigDecimal;
-
 import edu.aurora.oilchange.Main;
 import edu.aurora.oilchange.Oil;
 import edu.aurora.oilchange.ui.AppLauncher;
+
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+
+import java.math.BigDecimal;
 
 public class OilController {
 	@FXML
@@ -34,34 +34,35 @@ public class OilController {
 	private TextArea txtWarning;
 
 	@FXML
-	private void initialize() throws NumberFormatException {
+	private void initialize() {
+		// TODO: Scaling, models, don't throw exceptions
 		btnNext.setOnAction(e -> {
 			Oil oil = new Oil();
-			boolean oilType = false, oilBrand = false, oilQuant = false, oilPrice = false, filterType = false,
+			boolean oilType = false, oilBrand = false, oilQuantity = false, oilPrice = false, filterType = false,
 					filterBrand = false;
 			String whatsWrong = "";
-			if (!txtOilType.getText().toString().matches("[0-9]+")) {
-				oil.setOilType((txtOilType.getText().toString()));
+			if (!txtOilType.getText().matches("[0-9]+")) {
+				oil.setOilType((txtOilType.getText()));
 				oilType = true;
 			}
-			if (!txtOilBrand.getText().toString().matches("[0-9]+")) {
-				oil.setOilBrand(txtOilBrand.getText().toString());
+			if (!txtOilBrand.getText().matches("[0-9]+")) {
+				oil.setOilBrand(txtOilBrand.getText());
 				oilBrand = true;
 			}
-			if (txtOilQuantity.getText().toString().matches("[0-9]+")) {
-				oil.setQuantity((Integer.parseInt(txtOilQuantity.getText().toString())));
-				oilQuant = true;
+			if (txtOilQuantity.getText().matches("[0-9]+")) {
+				oil.setQuantity((Integer.parseInt(txtOilQuantity.getText())));
+				oilQuantity = true;
 
 			}
 			if (!txtOilPrice.getText().isEmpty()) {
-				String temp = ((txtOilPrice.getText().toString()));
+				String temp = ((txtOilPrice.getText()));
 				if (temp.contains(".")) {
 					try {
 						Double dubTemp = Double.parseDouble(temp);
 						BigDecimal money = new BigDecimal(dubTemp);
 						oil.setPricePerQuart(money);
 						oilPrice = true;
-					} catch (Exception excep) {
+					} catch (Exception ex) {
 						whatsWrong = whatsWrong + " Only use a decimal number";
 					}
 
@@ -69,37 +70,37 @@ public class OilController {
 					whatsWrong = whatsWrong + " Enter a valid cost for OilPrice. I.E 1.99";
 
 			}
-			if (!txtFilterBrand.getText().toString().matches("[0-9]+")) {
-				oil.setFilterBrand((txtFilterBrand.getText().toString()));
+			if (!txtFilterBrand.getText().matches("[0-9]+")) {
+				oil.setFilterBrand((txtFilterBrand.getText()));
 				filterBrand = true;
 			}
 			if (!txtFilterCost.getText().isEmpty()) {
-				String temp = ((txtFilterCost.getText().toString()));
+				String temp = ((txtFilterCost.getText()));
 				if (temp.contains(".")) {
 					try {
 						Double dubTemp = Double.parseDouble(temp);
 						BigDecimal money = new BigDecimal(dubTemp);
 						oil.setFilterCost((money));
 						filterType = true;
-					} catch (Exception excep) {
+					} catch (Exception ex) {
 						whatsWrong = whatsWrong + " Enter a valid cost for Filter Price. I.E 1.99";
 					}
 
 				} else
 					whatsWrong = whatsWrong + " Enter a valid cost for Filter Price. I.E 1.99";
 			}
-			if (txtOilType.getText().toString().matches("[0-9]+") || txtOilType.getText().isEmpty()) {
+			if (txtOilType.getText().matches("[0-9]+") || txtOilType.getText().isEmpty()) {
 				whatsWrong = whatsWrong + "Please only use letters for Oil Type. ";
 				oilType = false;
 			}
-			if (txtOilBrand.getText().toString().matches("[0-9]+") || txtOilBrand.getText().isEmpty()) {
+			if (txtOilBrand.getText().matches("[0-9]+") || txtOilBrand.getText().isEmpty()) {
 				whatsWrong = whatsWrong + "Please only use letters for Oil Brand. ";
 				oilBrand = false;
 			}
 
-			if (!txtOilQuantity.getText().toString().matches("[0-9]+") || txtOilQuantity.getText().isEmpty()) {
+			if (!txtOilQuantity.getText().matches("[0-9]+") || txtOilQuantity.getText().isEmpty()) {
 				whatsWrong = whatsWrong + "Please only use numbers for Oil Quantity. ";
-				oilQuant = false;
+				oilQuantity = false;
 			}
 
 			if (txtOilPrice.getText().isEmpty()) {
@@ -107,7 +108,7 @@ public class OilController {
 				oilPrice = false;
 			}
 
-			if (txtFilterBrand.getText().toString().matches("[0-9]+") || txtFilterBrand.getText().isEmpty()) {
+			if (txtFilterBrand.getText().matches("[0-9]+") || txtFilterBrand.getText().isEmpty()) {
 				whatsWrong = whatsWrong + "Please only use letters for Filter Type. ";
 				filterBrand = false;
 			}
@@ -118,20 +119,14 @@ public class OilController {
 			}
 			if (!whatsWrong.equals(""))
 				txtWarning.setText(whatsWrong);
-			if (oilType && oilBrand && oilQuant && oilPrice && filterType && filterBrand) {
+			if (oilType && oilBrand && oilQuantity && oilPrice && filterType && filterBrand) {
 				System.out.println("Ready to move to the status screen: ");
 				Main.oil = oil;
-				AppLauncher.root.setCenter(null);
-				AppLauncher.root.setCenter(((Node) AppLauncher.summary));
+				AppLauncher.root.setCenter(AppLauncher.summary);
 
 			}
 		});
-		btnBack.setOnAction(e -> {
-			AppLauncher.root.setCenter(null);
-			AppLauncher.root.setCenter(((Node) AppLauncher.vehicle));
-		});
-		btnCancel.setOnAction(e -> {
-			System.exit(1);
-		});
+		btnBack.setOnAction(e -> AppLauncher.root.setCenter(AppLauncher.vehicle));
+		btnCancel.setOnAction(e -> System.exit(1));
 	}
 }

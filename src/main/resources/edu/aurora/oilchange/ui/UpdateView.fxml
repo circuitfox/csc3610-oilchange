@@ -35,8 +35,8 @@
 			prefHeight="31.0" prefWidth="82.0" />
 		<TextField fx:id="txtOilBrand" layoutX="268.0" layoutY="145.0"
 			prefHeight="31.0" prefWidth="91.0" />
-		<TextField fx:id="txtOilQuant" layoutX="451.0" layoutY="145.0"
-			prefHeight="31.0" prefWidth="61.0" />
+		<TextField fx:id="txtOilQuantity" layoutX="451.0" layoutY="145.0"
+				   prefHeight="31.0" prefWidth="61.0" />
 		<Label layoutX="238.0" layoutY="12.0" text="Vehicle Info:" />
 		<Label layoutX="253.0" layoutY="111.0" text="Oil Info:" />
 		<Label layoutX="25.0" layoutY="195.0" text="Price: $" />
