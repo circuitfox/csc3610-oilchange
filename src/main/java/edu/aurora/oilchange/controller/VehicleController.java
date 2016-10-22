@@ -31,47 +31,40 @@ public class VehicleController {
 		// TODO: Use models, fix scaling, fix indentation.
 		btnNext.setOnAction(e -> {
 			Vehicle vehicle = new Vehicle();
-			boolean make = false;
-			boolean model = false;
-			boolean year = false;
-			boolean date = false;
-			String forDialogue = "";
-			if (!txtMake.getText().matches("[0-9]*")) {
+            boolean fail = false;
+            String error = "";
+
+            if (Validations.digits(txtMake.getText()).not().any()) {
 				vehicle.setMake((txtMake.getText()));
-				make = true;
+            } else {
+                error += "Please Only use letters for the make.";
+                fail = true;
 			}
-			if (txtMake.getText().matches("[0-9]+") || txtMake.getText().equals("")) {
-				forDialogue = forDialogue + "Please Only use letters for the make.";
-				make = false;
-			}
-			if (!txtModel.getText().matches("[0-9]+")) {
+
+			if (Validations.digits(txtModel.getText()).not().any()) {
 				vehicle.setModel((txtModel.getText()));
-				model = true;
+			} else {
+				error += " Please Only use letters for the model.";
+                fail = true;
 			}
-			if (txtModel.getText().matches("[0-9]+") || txtModel.getText().equals("")) {
-				forDialogue = forDialogue + " Please Only use letters for the model.";
-				model = false;
-			}
-			if (txtYear.getText().matches("\\d{4}")) {
+
+			if (Validations.digits(txtYear.getText()).repeat(4)) {
 				vehicle.setYear((txtYear.getText()));
-				year = true;
+			} else {
+				error += " Please only use four numbers for the year.";
+				fail = true;
 			}
-			if (!txtYear.getText().matches("\\d{4}")) {
-				forDialogue = forDialogue + " Please only use four numbers for the year.";
-				year = false;
-			}
+
 			if (dtDate.getValue() != null) {
 				vehicle.setDate(dtDate.getValue());
-				date = true;
+			} else {
+				error += " Please enter a valid date.";
+				fail = true;
 			}
-			if (dtDate.getValue() == null) {
-				forDialogue = forDialogue + " Please enter a valid date.";
-				date = false;
-			}
-			if (!forDialogue.equals("")) {
-				txtWarning.setText(forDialogue);
-			}
-			if (make && model && year && date) {
+
+			if (fail) {
+				txtWarning.setText(error);
+			} else {
 				Main.vehicle = vehicle;
 				System.out.println(Main.vehicle.getMake());
 				AppLauncher.root.setCenter(AppLauncher.oil);
@@ -79,5 +72,4 @@ public class VehicleController {
 		});
 		btnCancel.setOnAction(e -> System.exit(1));
 	}
-
 }

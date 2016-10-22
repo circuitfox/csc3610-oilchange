@@ -75,5 +75,6 @@ public class ValidationsTest {
         assertTrue("Does not invert some()", Validations.alphabetical("1234").not().some());
         assertTrue("Does not invert repeat()", Validations.digits("113").not().repeat(4));
         assertTrue("Does not invert range()", Validations.alphabetical("1").not().range(2, 5));
+        assertFalse("Inverted any() matches empty string", Validations.digits("").not().any());
     }
 }

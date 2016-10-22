@@ -3,6 +3,8 @@ package edu.aurora.oilchange.controller;
 /**
  * Utility class for input validations
  */
+// so intellij quits whining
+@SuppressWarnings("WeakerAccess")
 public class Validations {
     private Validations() {}
 
@@ -44,17 +46,18 @@ public class Validations {
         }
 
         public boolean one() {
-            return input.matches(pattern) || invert;
+            // ^ = xor (t,t => f, t,f => t, f,t => t, f,f => f)
+            return input.matches(pattern) ^ invert;
         }
 
         public boolean any() {
             pattern = pattern + "*";
-            return input.matches(pattern) || invert;
+            return input.matches(pattern) ^ invert;
         }
 
         public boolean some() {
             pattern = pattern + "+";
-            return input.matches(pattern) || invert;
+            return input.matches(pattern) ^ invert;
         }
 
         public boolean repeat(int times) {
@@ -62,7 +65,7 @@ public class Validations {
                 return false;
             }
             pattern = pattern + "{" + times + "}";
-            return input.matches(pattern) || invert;
+            return input.matches(pattern) ^ invert;
         }
 
         public boolean range(int from, int to) {
@@ -70,7 +73,7 @@ public class Validations {
                 return false;
             }
             pattern = pattern + "{" + from + "," + to + "}";
-            return input.matches(pattern) || invert;
+            return input.matches(pattern) ^ invert;
         }
     }
 }

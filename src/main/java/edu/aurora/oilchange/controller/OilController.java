@@ -38,92 +38,71 @@ public class OilController {
 		// TODO: Scaling, models, don't throw exceptions
 		btnNext.setOnAction(e -> {
 			Oil oil = new Oil();
-			boolean oilType = false, oilBrand = false, oilQuantity = false, oilPrice = false, filterType = false,
-					filterBrand = false;
-			String whatsWrong = "";
-			if (!txtOilType.getText().matches("[0-9]+")) {
-				oil.setOilType((txtOilType.getText()));
-				oilType = true;
+            boolean fail = false;
+			String error = "";
+
+			if (Validations.digits(txtOilType.getText()).not().any()) {
+				oil.setOilType(txtOilType.getText());
+			} else {
+				error += "Please only use letters for Oil Type. ";
+                fail = true;
 			}
-			if (!txtOilBrand.getText().matches("[0-9]+")) {
+
+			if (Validations.digits(txtOilBrand.getText()).not().any()) {
 				oil.setOilBrand(txtOilBrand.getText());
-				oilBrand = true;
+			} else {
+				error += "Please only use letters for Oil Brand. ";
+                fail = true;
 			}
-			if (txtOilQuantity.getText().matches("[0-9]+")) {
+
+			if (Validations.digits(txtOilQuantity.getText()).some()) {
 				oil.setQuantity((Integer.parseInt(txtOilQuantity.getText())));
-				oilQuantity = true;
-
+			} else {
+				error += "Please only use numbers for Oil Quantity. ";
+                fail = true;
 			}
-			if (!txtOilPrice.getText().isEmpty()) {
-				String temp = ((txtOilPrice.getText()));
-				if (temp.contains(".")) {
-					try {
-						Double dubTemp = Double.parseDouble(temp);
-						BigDecimal money = new BigDecimal(dubTemp);
-						oil.setPricePerQuart(money);
-						oilPrice = true;
-					} catch (Exception ex) {
-						whatsWrong = whatsWrong + " Only use a decimal number";
-					}
 
-				} else
-					whatsWrong = whatsWrong + " Enter a valid cost for OilPrice. I.E 1.99";
-
+			if (Validations.alphabetical(txtOilPrice.getText()).not().any()) {
+                try {
+                    Double dubTemp = Double.parseDouble(txtOilPrice.getText());
+                    BigDecimal money = new BigDecimal(dubTemp);
+                    oil.setPricePerQuart(money);
+                } catch (Exception ex) {
+                    error += " Enter a valid cost for OilPrice. I.E 1.99 ";
+                    fail = true;
+                }
+			} else {
+                error += " Enter a valid cost for OilPrice. I.E 1.99 ";
+                fail = true;
 			}
-			if (!txtFilterBrand.getText().matches("[0-9]+")) {
+
+			if (Validations.digits(txtFilterBrand.getText()).not().any()) {
 				oil.setFilterBrand((txtFilterBrand.getText()));
-				filterBrand = true;
-			}
-			if (!txtFilterCost.getText().isEmpty()) {
-				String temp = ((txtFilterCost.getText()));
-				if (temp.contains(".")) {
-					try {
-						Double dubTemp = Double.parseDouble(temp);
-						BigDecimal money = new BigDecimal(dubTemp);
-						oil.setFilterCost((money));
-						filterType = true;
-					} catch (Exception ex) {
-						whatsWrong = whatsWrong + " Enter a valid cost for Filter Price. I.E 1.99";
-					}
-
-				} else
-					whatsWrong = whatsWrong + " Enter a valid cost for Filter Price. I.E 1.99";
-			}
-			if (txtOilType.getText().matches("[0-9]+") || txtOilType.getText().isEmpty()) {
-				whatsWrong = whatsWrong + "Please only use letters for Oil Type. ";
-				oilType = false;
-			}
-			if (txtOilBrand.getText().matches("[0-9]+") || txtOilBrand.getText().isEmpty()) {
-				whatsWrong = whatsWrong + "Please only use letters for Oil Brand. ";
-				oilBrand = false;
+			} else {
+				error += "Please only use letters for Filter Type. ";
+                fail = true;
 			}
 
-			if (!txtOilQuantity.getText().matches("[0-9]+") || txtOilQuantity.getText().isEmpty()) {
-				whatsWrong = whatsWrong + "Please only use numbers for Oil Quantity. ";
-				oilQuantity = false;
+			if (Validations.alphabetical(txtFilterCost.getText()).not().any()) {
+                try {
+                    Double dubTemp = Double.parseDouble(txtFilterCost.getText());
+                    BigDecimal money = new BigDecimal(dubTemp);
+                    oil.setFilterCost((money));
+                } catch (Exception ex) {
+                    error += " Enter a valid cost for Filter Price. I.E 1.99 ";
+                    fail = true;
+                }
+			} else {
+                error += " Enter a valid cost for Filter Price. I.E 1.99 ";
+                fail = true;
 			}
 
-			if (txtOilPrice.getText().isEmpty()) {
-				whatsWrong = whatsWrong + "Please fill in Oil Price field. ";
-				oilPrice = false;
-			}
-
-			if (txtFilterBrand.getText().matches("[0-9]+") || txtFilterBrand.getText().isEmpty()) {
-				whatsWrong = whatsWrong + "Please only use letters for Filter Type. ";
-				filterBrand = false;
-			}
-
-			if (txtFilterCost.getText().isEmpty()) {
-				whatsWrong = whatsWrong + "Please fill in Filter Cost field. ";
-				filterType = false;
-			}
-			if (!whatsWrong.equals(""))
-				txtWarning.setText(whatsWrong);
-			if (oilType && oilBrand && oilQuantity && oilPrice && filterType && filterBrand) {
+			if (fail) {
+				txtWarning.setText(error);
+			} else {
 				System.out.println("Ready to move to the status screen: ");
 				Main.oil = oil;
 				AppLauncher.root.setCenter(AppLauncher.summary);
-
 			}
 		});
 		btnBack.setOnAction(e -> AppLauncher.root.setCenter(AppLauncher.vehicle));
