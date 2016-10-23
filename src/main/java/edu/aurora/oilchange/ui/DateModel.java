@@ -22,8 +22,8 @@ public class DateModel {
 
         month.addListener((observable, oldValue, newValue) -> {
             int value = newValue.intValue();
-            if (value <= 0 || value > Date.MAX_MONTH) {
-                throw new InvalidDateException("Month must be less than 0 or greater than 12");
+            if (value < 0 || value > Date.MAX_MONTH) {
+                throw new InvalidDateException("Month must be between 1 and 12.");
             }
             date.setMonth(value);
         });
@@ -49,15 +49,15 @@ public class DateModel {
             if (isLeapYear(year)) {
                 maxDay = 29;
             }
-            if (day <= 0 || day > maxDay) {
+            if (day < 0 || day > maxDay) {
                 return false;
             }
         } else if (month == 4 || month == 6 || month == 9 || month == 11) {
-            if (day <= 0 || day > 30) {
+            if (day < 0 || day > 30) {
                 return false;
             }
         } else {
-            if (day <= 0 || day > Date.MAX_DAY) {
+            if (day < 0 || day > Date.MAX_DAY) {
                 return false;
             }
         }
@@ -122,6 +122,6 @@ public class DateModel {
 
     @Override
     public String toString() {
-        return String.format("Date: %d/%d/%d\n", month.get(), day.get(), year.get());
+        return String.format("%d/%d/%d\n", month.get(), day.get(), year.get());
     }
 }

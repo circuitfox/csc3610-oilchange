@@ -7,17 +7,15 @@ public class Vehicle {
 	private String make;
 	private String model;
 	private String year;
-	private LocalDate date;
 
 	public Vehicle() {
 		// default
 	}
 
-	public Vehicle(String make, String model, String year, LocalDate date) {
+	public Vehicle(String make, String model, String year) {
 		this.make = make;
 		this.model = model;
 		this.year = year;
-		this.date = date;
 	}
 
 	public void setMake(String make) {
@@ -44,17 +42,9 @@ public class Vehicle {
 		return this.year;
 	}
 
-	public LocalDate getDate() {
-		return date;
-	}
-
-	public void setDate(LocalDate date) {
-		this.date = date;
-	}
-
 	@Override
 	public String toString() {
-		return "Vehicle [make=" + make + ", model=" + model + ", year=" + year + ", date=" + date.toString() + "]";
+		return "Vehicle [make=" + make + ", model=" + model + ", year=" + year + "]";
 	}
 
 }

@@ -9,7 +9,7 @@ public class OilChange {
     private double laborHours;
 
     public OilChange() {
-        this.laborHours = 0;
+        this.laborHours = 1;
     }
 
     public OilChange(double laborHours) {
@@ -32,9 +32,6 @@ public class OilChange {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("OilChange{");
-        sb.append("laborHours=").append(laborHours);
-        sb.append('}');
-        return sb.toString();
+        return "OilChange{" + "laborHours=" + laborHours + '}';
     }
 }
