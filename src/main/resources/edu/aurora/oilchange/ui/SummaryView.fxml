@@ -27,6 +27,7 @@
 				<Label text="Price of Oil:" />
 				<Label text="Filter Brand:" />
 				<Label text="Filter Cost:" />
+				<Label text="Total Cost:" />
 			</children>
 		</VBox>
 		<VBox layoutX="313.0" layoutY="31.0" prefHeight="200.0"
@@ -42,9 +43,8 @@
 				<Label fx:id="lblOilCost" />
 				<Label fx:id="lblFilterBrand" />
 				<Label fx:id="lblFilterCost" />
+				<Label fx:id="lblTotalCost" />
 			</children>
 		</VBox>
-		<Button fx:id="btnRefresh" layoutX="285.0" layoutY="221.0"
-			mnemonicParsing="false" prefHeight="25.0" prefWidth="56.0" text="Refresh" />
 	</children>
 </AnchorPane>
