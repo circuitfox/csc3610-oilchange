@@ -8,8 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.aurora.oilchange.controller.AddController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.aurora.oilchange.controller.AddController">
    <left>
       <VBox alignment="TOP_CENTER" prefHeight="400.0" prefWidth="140.0" BorderPane.alignment="CENTER">
          <children>
@@ -34,6 +33,7 @@
    <bottom>
       <HBox alignment="CENTER_RIGHT" prefHeight="70.0" prefWidth="600.0" BorderPane.alignment="TOP_LEFT">
          <children>
+            <Button fx:id="btnBack" mnemonicParsing="false" text="Back" />
             <Button fx:id="btnNext" mnemonicParsing="false" text="Next">
                <HBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
