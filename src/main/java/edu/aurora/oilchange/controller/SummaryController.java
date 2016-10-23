@@ -47,6 +47,12 @@ public class SummaryController {
     private OilChangeModel oilChangeModel;
     private DateModel dateModel;
 
+    public SummaryController() {
+        vehicleModel = new VehicleModel();
+        oilModel = new OilModel();
+        oilChangeModel = new OilChangeModel();
+        dateModel = new DateModel();
+    }
 	@FXML
 	private void initialize() {
         NumberStringConverter numberStringConverter = new NumberStringConverter();
@@ -86,7 +92,7 @@ public class SummaryController {
 		btnSave.setOnAction(e -> {
             // FIXME: Replace this with setters to Main for now.
 			int id = (int) (Math.random() * 999999);
-			Main.customer = new Customer(Main.vehicle, Main.oil, id);
+			Main.customer = new Customer(vehicleModel.getVehicle(), oilModel.getOil(), id);
 			System.out.println("Information stored. Customer ID is " + id);
 		});
 

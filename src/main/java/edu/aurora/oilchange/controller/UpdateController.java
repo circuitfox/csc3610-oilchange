@@ -52,6 +52,13 @@ public class UpdateController {
     private OilChangeModel oilChangeModel;
     private DateModel dateModel;
 
+    public UpdateController() {
+        vehicleModel = new VehicleModel();
+        oilModel = new OilModel();
+        oilChangeModel = new OilChangeModel();
+        dateModel = new DateModel();
+    }
+
     @FXML
     private void initialize() {
         // TODO: TextFormatter validation
@@ -61,21 +68,21 @@ public class UpdateController {
 
         dtDate.setValue(LocalDate.of(dateModel.getYear(), dateModel.getMonth(), dateModel.getDay()));
 
-        txtMake.textProperty().bind(vehicleModel.makeProperty());
-        txtModel.textProperty().bind(vehicleModel.modelProperty());
-        txtYear.textProperty().bind(vehicleModel.yearProperty());
+        txtMake.textProperty().bindBidirectional(vehicleModel.makeProperty());
+        txtModel.textProperty().bindBidirectional(vehicleModel.modelProperty());
+        txtYear.textProperty().bindBidirectional(vehicleModel.yearProperty());
 
         dtDate.valueProperty().addListener((observable, oldValue, newValue) -> {
-            dateModel.setMonth(newValue.getDayOfMonth());
+            dateModel.setMonth(newValue.getMonthValue());
             dateModel.setDay(newValue.getDayOfMonth());
             dateModel.setYear(newValue.getYear());
         });
 
-        txtOilType.textProperty().bind(oilModel.oilTypeProperty());
-        txtOilBrand.textProperty().bind(oilModel.oilBrandProperty());
+        txtOilType.textProperty().bindBidirectional(oilModel.oilTypeProperty());
+        txtOilBrand.textProperty().bindBidirectional(oilModel.oilBrandProperty());
         txtOilQuantity.textProperty().bindBidirectional(oilModel.quantityProperty(), numberStringConverter);
         txtOilPrice.textProperty().bindBidirectional(oilModel.pricePerQuartProperty(), bigDecimalStringConverter);
-        txtFilterBrand.textProperty().bind(oilModel.filterBrandProperty());
+        txtFilterBrand.textProperty().bindBidirectional(oilModel.filterBrandProperty());
         txtFilterCost.textProperty().bindBidirectional(oilModel.filterCostProperty(), bigDecimalStringConverter);
 
         lblCost.textProperty().bind(Bindings.createStringBinding(() -> {

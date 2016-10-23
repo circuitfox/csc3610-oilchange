@@ -7,11 +7,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextFormatter;
 import javafx.util.converter.BigDecimalStringConverter;
 import javafx.util.converter.NumberStringConverter;
-
-import java.util.function.UnaryOperator;
 
 public class OilController {
 	@FXML
@@ -37,6 +34,10 @@ public class OilController {
 
 	private OilModel oilModel;
 
+    public OilController() {
+        oilModel = new OilModel();
+    }
+
 	@FXML
 	private void initialize() {
         // TODO: Use TextFormatter for validation
@@ -44,11 +45,11 @@ public class OilController {
         BigDecimalStringConverter bigDecimalStringConverter = new BigDecimalStringConverter();
 
         // We need to have bidirectional bindings to convert String to Number/BigDecimal
-        txtOilType.textProperty().bind(oilModel.oilTypeProperty());
-        txtOilBrand.textProperty().bind(oilModel.oilBrandProperty());
+        txtOilType.textProperty().bindBidirectional(oilModel.oilTypeProperty());
+        txtOilBrand.textProperty().bindBidirectional(oilModel.oilBrandProperty());
         txtOilQuantity.textProperty().bindBidirectional(oilModel.quantityProperty(), numberStringConverter);
         txtOilPrice.textProperty().bindBidirectional(oilModel.pricePerQuartProperty(), bigDecimalStringConverter);
-        txtFilterBrand.textProperty().bind(oilModel.filterBrandProperty());
+        txtFilterBrand.textProperty().bindBidirectional(oilModel.filterBrandProperty());
         txtFilterCost.textProperty().bindBidirectional(oilModel.filterCostProperty(), bigDecimalStringConverter);
 
         btnNext.setOnAction(e -> {

@@ -11,8 +11,7 @@ import edu.aurora.oilchange.ui.AppLauncher;
  * and run the javafx app.
  */
 public class Main {
-	public static Oil oil;
-	public static Vehicle vehicle;
+    // TODO: Replace all this with our DB
 	public static Customer customer;
 	public static HashMap vehicles;
 

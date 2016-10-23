@@ -31,16 +31,21 @@ public class VehicleController {
 	private VehicleModel vehicleModel;
 	private DateModel dateModel;
 
+	public VehicleController() {
+		vehicleModel = new VehicleModel();
+		dateModel = new DateModel();
+	}
+
 	@FXML
 	private void initialize() {
         dtDate.setValue(LocalDate.of(dateModel.getYear(), dateModel.getMonth(), dateModel.getDay()));
 
-		txtMake.textProperty().bind(vehicleModel.makeProperty());
-        txtModel.textProperty().bind(vehicleModel.modelProperty());
-		txtYear.textProperty().bind(vehicleModel.yearProperty());
+		txtMake.textProperty().bindBidirectional(vehicleModel.makeProperty());
+        txtModel.textProperty().bindBidirectional(vehicleModel.modelProperty());
+		txtYear.textProperty().bindBidirectional(vehicleModel.yearProperty());
 
 		dtDate.valueProperty().addListener((observable, oldValue, newValue) -> {
-			dateModel.setMonth(newValue.getDayOfMonth());
+			dateModel.setMonth(newValue.getMonthValue());
 			dateModel.setDay(newValue.getDayOfMonth());
 			dateModel.setYear(newValue.getYear());
 		});

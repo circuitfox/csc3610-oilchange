@@ -1,6 +1,6 @@
 package edu.aurora.oilchange;
 
-import java.util.Calendar;
+import java.time.LocalDate;
 
 /**
  * A date with month, day, and year.
@@ -22,10 +22,10 @@ public class Date {
      * Creates a new date from today's date.
      */
     public Date() {
-        Calendar cal = Calendar.getInstance();
-        this.month = cal.get(Calendar.MONTH);
-        this.day = cal.get(Calendar.DAY_OF_MONTH);
-        this.year = cal.get(Calendar.YEAR);
+        LocalDate today = LocalDate.now();
+        this.month = today.getMonthValue();
+        this.day = today.getDayOfMonth();
+        this.year = today.getYear();
     }
 
     /**
@@ -38,10 +38,10 @@ public class Date {
     public Date(int month, int day, int year) {
         // these are already validated before they get to us,
         // but just to be safe we'll do some basic bounds checking
-        if (month <= 0 || month > MAX_MONTH) {
-            throw new InvalidDateException("The month must be between 0 and 12");
-        } else if (day <= 0 || day > MAX_DAY) {
-            throw new InvalidDateException("The day must be between 0 and 31");
+        if (month < 0 || month > MAX_MONTH) {
+            throw new InvalidDateException("The month must be between 1 and 12");
+        } else if (day < 0 || day > MAX_DAY) {
+            throw new InvalidDateException("The day must be between 1 and 31");
         }
         this.month = month;
         this.day = day;
@@ -53,8 +53,8 @@ public class Date {
     }
 
     public void setMonth(int month) {
-        if (month <= 0 || month > MAX_MONTH) {
-            throw new InvalidDateException("The month must be between 0 and 12");
+        if (month < 0 || month > MAX_MONTH) {
+            throw new InvalidDateException("The month must be between 1 and 12");
         }
         this.month = month;
     }
@@ -65,8 +65,8 @@ public class Date {
 
     public void setDay(int day) {
         // again, minimal bounds checking (this should be validated already)
-        if (day <= 0 || day > MAX_DAY) {
-            throw new InvalidDateException("The day must be between 0 and 31");
+        if (day < 0 || day > MAX_DAY) {
+            throw new InvalidDateException("The day must be between 1 and 31");
         }
         this.day = day;
     }
@@ -85,6 +85,6 @@ public class Date {
      */
     @Override
     public String toString() {
-        return String.format("%s-%2s-%2s", year, month, day);
+        return String.format("%d-%2d-%2d", year, month, day);
     }
 }
