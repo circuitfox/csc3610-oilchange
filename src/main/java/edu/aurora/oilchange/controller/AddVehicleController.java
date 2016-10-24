@@ -12,7 +12,7 @@ import javafx.scene.control.TextField;
 
 import java.time.LocalDate;
 
-public class VehicleController {
+public class AddVehicleController {
 	@FXML
 	private Button btnNext;
 	@FXML

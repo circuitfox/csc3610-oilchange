@@ -10,7 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.util.converter.BigDecimalStringConverter;
 import javafx.util.converter.NumberStringConverter;
 
-public class OilController {
+public class AddOilManualController {
 	@FXML
 	private TextField txtOilType;
 	@FXML

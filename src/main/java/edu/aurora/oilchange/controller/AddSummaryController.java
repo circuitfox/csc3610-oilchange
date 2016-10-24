@@ -14,7 +14,7 @@ import javafx.util.converter.NumberStringConverter;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 
-public class SummaryController {
+public class AddSummaryController {
     @FXML
 	private Button btnBack;
 	@FXML
