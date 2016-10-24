@@ -16,7 +16,7 @@
 		<TextField fx:id="txtYear" layoutX="58.0" layoutY="94.0" prefHeight="25.0" prefWidth="80.0" />
 		<Label layoutX="19.0" layoutY="135.0" text="Date:" />
 		<DatePicker fx:id="dtDate" layoutX="58.0" layoutY="131.0" prefHeight="25.0" prefWidth="145.0" />
-      <Label fx:id="lblDateError" layoutX="219.0" layoutY="98.0" text="Use exactly 4 digits" visible="false" />
+      <Label fx:id="lblDateError" layoutX="219.0" layoutY="98.0" styleClass="validation-error" text="Use exactly 4 digits" visible="false" />
       <ComboBox fx:id="cbMake" layoutX="56.0" layoutY="14.0" prefWidth="150.0" />
       <ComboBox fx:id="cbModel" layoutX="56.0" layoutY="55.0" prefWidth="150.0" />
 	</children>

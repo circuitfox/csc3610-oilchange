@@ -1,0 +1,15 @@
+.stage {
+    -fx-background-color: #7fb8ff;
+}
+
+.warn {
+    -fx-background-color: #fff78e;
+}
+
+.overdue {
+    -fx-background-color: #ff8e8e;
+}
+
+.validation-error {
+    -fx-text-fill: #7a2424;
+}

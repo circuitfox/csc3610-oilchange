@@ -41,9 +41,9 @@
 		<DatePicker fx:id="dtDate" layoutX="72.0" layoutY="332.0" />
 		<Label layoutX="24.0" layoutY="387.0" text="Total Cost: $" />
 		<Label fx:id="lblCost" layoutX="106.0" layoutY="387.0" text="0" />
-      <Label fx:id="lblDigitError" layoutX="266.0" layoutY="295.0" text="Use only digits for " visible="false" />
-      <Label fx:id="lblLetterError" layoutX="266.0" layoutY="324.0" text="Use only letters for " visible="false" />
-      <Label fx:id="lblbPriceError" layoutX="266.0" layoutY="354.0" text="Enter a decimal number (1.99) for  " visible="false" />
+      <Label fx:id="lblDigitError" layoutX="266.0" layoutY="295.0" styleClass="validation-error" text="Use only digits for " visible="false" />
+      <Label fx:id="lblLetterError" layoutX="266.0" layoutY="324.0" styleClass="validation-error" text="Use only letters for " visible="false" />
+      <Label fx:id="lblbPriceError" layoutX="266.0" layoutY="354.0" styleClass="validation-error" text="Enter a decimal number (1.99) for  " visible="false" />
       <ComboBox fx:id="cbMake" layoutX="74.0" layoutY="73.0" prefHeight="25.0" prefWidth="108.0" />
       <ComboBox fx:id="cbModel" layoutX="266.0" layoutY="73.0" prefHeight="25.0" prefWidth="108.0" />
 	</children>
