@@ -3,7 +3,7 @@ package edu.aurora.oilchange;
 import java.time.LocalDate;
 
 // TODO: Remove date
-public class Vehicle {
+public class Vehicle implements Comparable<Vehicle> {
 	private String make;
 	private String model;
 	private String year;
@@ -45,6 +45,25 @@ public class Vehicle {
 	@Override
 	public String toString() {
 		return "Vehicle [make=" + make + ", model=" + model + ", year=" + year + "]";
+	}
+
+	// returns vehicles in ascending order starting with the make, then model, then year
+	@Override
+	public int compareTo(Vehicle vehic) {
+		if (this.getMake().compareTo(vehic.getMake()) > 1) {
+			return 1;
+		} else if (this.getMake().compareTo(vehic.getMake()) < 1)
+			return -1;
+		else if (this.getModel().compareTo(vehic.getModel()) > 1) {
+			return 1;
+		} else if (this.getModel().compareTo(vehic.getModel()) < 1)
+			return -1;
+		else if (this.getYear().compareTo(vehic.getYear()) > 1) {
+			return 1;
+		} else if (this.getYear().compareTo(vehic.getYear()) < 1)
+			return -1;
+		else
+			return 0;
 	}
 
 }
