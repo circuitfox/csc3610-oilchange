@@ -38,10 +38,10 @@ public class VehicleController {
 
 	@FXML
 	private void initialize() {
-        dtDate.setValue(LocalDate.of(dateModel.getYear(), dateModel.getMonth(), dateModel.getDay()));
+		dtDate.setValue(LocalDate.of(dateModel.getYear(), dateModel.getMonth(), dateModel.getDay()));
 
 		txtMake.textProperty().bindBidirectional(vehicleModel.makeProperty());
-        txtModel.textProperty().bindBidirectional(vehicleModel.modelProperty());
+		txtModel.textProperty().bindBidirectional(vehicleModel.modelProperty());
 		txtYear.textProperty().bindBidirectional(vehicleModel.yearProperty());
 
 		dtDate.valueProperty().addListener((observable, oldValue, newValue) -> {
@@ -51,17 +51,17 @@ public class VehicleController {
 		});
 
 		btnNext.setOnAction(e -> {
-            boolean fail = false;
-            String error = "";
+			boolean fail = false;
+			String error = "";
 
-            if (Validations.digits(txtMake.getText()).any()) {
-                error += "Please Only use letters for the make.";
-                fail = true;
+			if (Validations.digits(txtMake.getText()).any()) {
+				error += "Please Only use letters for the make.";
+				fail = true;
 			}
 
 			if (Validations.digits(txtModel.getText()).any()) {
 				error += " Please Only use letters for the model.";
-                fail = true;
+				fail = true;
 			}
 
 			if (!Validations.digits(txtYear.getText()).repeat(4)) {
@@ -72,6 +72,8 @@ public class VehicleController {
 			if (fail) {
 				txtWarning.setText(error);
 			} else {
+				System.out.println("Test");
+				System.out.println(vehicleModel.toString());
 				AppLauncher.root.setCenter(AppLauncher.oil);
 			}
 		});
