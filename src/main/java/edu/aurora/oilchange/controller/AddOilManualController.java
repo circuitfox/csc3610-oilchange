@@ -34,56 +34,57 @@ public class AddOilManualController {
 
 	private OilModel oilModel;
 
-    public OilController() {
-        oilModel = new OilModel();
-    }
+	public OilController() {
+		oilModel = new OilModel();
+	}
 
 	@FXML
 	private void initialize() {
-        // TODO: Use TextFormatter for validation
-        NumberStringConverter numberStringConverter = new NumberStringConverter();
-        BigDecimalStringConverter bigDecimalStringConverter = new BigDecimalStringConverter();
+		// TODO: Use TextFormatter for validation
+		NumberStringConverter numberStringConverter = new NumberStringConverter();
+		BigDecimalStringConverter bigDecimalStringConverter = new BigDecimalStringConverter();
 
-        // We need to have bidirectional bindings to convert String to Number/BigDecimal
-        txtOilType.textProperty().bindBidirectional(oilModel.oilTypeProperty());
-        txtOilBrand.textProperty().bindBidirectional(oilModel.oilBrandProperty());
-        txtOilQuantity.textProperty().bindBidirectional(oilModel.quantityProperty(), numberStringConverter);
-        txtOilPrice.textProperty().bindBidirectional(oilModel.pricePerQuartProperty(), bigDecimalStringConverter);
-        txtFilterBrand.textProperty().bindBidirectional(oilModel.filterBrandProperty());
-        txtFilterCost.textProperty().bindBidirectional(oilModel.filterCostProperty(), bigDecimalStringConverter);
+		// We need to have bidirectional bindings to convert String to
+		// Number/BigDecimal
+		txtOilType.textProperty().bindBidirectional(oilModel.oilTypeProperty());
+		txtOilBrand.textProperty().bindBidirectional(oilModel.oilBrandProperty());
+		txtOilQuantity.textProperty().bindBidirectional(oilModel.quantityProperty(), numberStringConverter);
+		txtOilPrice.textProperty().bindBidirectional(oilModel.pricePerQuartProperty(), bigDecimalStringConverter);
+		txtFilterBrand.textProperty().bindBidirectional(oilModel.filterBrandProperty());
+		txtFilterCost.textProperty().bindBidirectional(oilModel.filterCostProperty(), bigDecimalStringConverter);
 
-        btnNext.setOnAction(e -> {
-            boolean fail = false;
+		btnNext.setOnAction(e -> {
+			boolean fail = false;
 			String error = "";
 
 			if (Validations.digits(txtOilType.getText()).any()) {
 				error += "Please only use letters for Oil Type. ";
-                fail = true;
+				fail = true;
 			}
 
 			if (Validations.digits(txtOilBrand.getText()).any()) {
 				error += "Please only use letters for Oil Brand. ";
-                fail = true;
+				fail = true;
 			}
 
 			if (!Validations.digits(txtOilQuantity.getText()).some()) {
 				error += "Please only use numbers for Oil Quantity. ";
-                fail = true;
+				fail = true;
 			}
 
 			if (Validations.alphabetical(txtOilPrice.getText()).any()) {
-                error += " Enter a valid cost for OilPrice. I.E 1.99 ";
-                fail = true;
+				error += " Enter a valid cost for OilPrice. I.E 1.99 ";
+				fail = true;
 			}
 
 			if (Validations.digits(txtFilterBrand.getText()).any()) {
 				error += "Please only use letters for Filter Type. ";
-                fail = true;
+				fail = true;
 			}
 
 			if (Validations.alphabetical(txtFilterCost.getText()).any()) {
-                error += " Enter a valid cost for Filter Price. I.E 1.99 ";
-                fail = true;
+				error += " Enter a valid cost for Filter Price. I.E 1.99 ";
+				fail = true;
 			}
 
 			if (fail) {
@@ -97,6 +98,6 @@ public class AddOilManualController {
 	}
 
 	public void setOilModel(OilModel model) {
-        this.oilModel = model;
-    }
+		this.oilModel = model;
+	}
 }
