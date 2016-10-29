@@ -1,5 +1,6 @@
 package edu.aurora.oilchange;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -31,7 +32,8 @@ public enum VehicleMake {
     TESLA,
     TOYOTA,
     VOLKSWAGEN,
-    VOLVO;
+    VOLVO,
+    OTHER;
 
     // Statically initialize the map.
     // TODO: Oil map
@@ -72,9 +74,25 @@ public enum VehicleMake {
 
     public static boolean hasModel(VehicleMake make, String model) {
         String regex = "\\b" + model + "\\b";
-        return vehicleMap.get(make).matches(regex);
+        String modelName = vehicleMap.get(make);
+        return modelName != null && modelName.matches(regex);
+    }
+
+    @Override
+    public String toString() {
+        return Character.toTitleCase(name().charAt(0)) + name().substring(1).toLowerCase();
+    }
+
+    public static VehicleMake fromString(String s) {
+        for (VehicleMake v : values()) {
+            if (s.equalsIgnoreCase(v.name())) {
+                return v;
+            }
+        }
+        return VehicleMake.OTHER;
+    }
+
+    public static String[] stringValues() {
+        return Arrays.stream(values()).map(VehicleMake::toString).toArray(String[]::new);
     }
 }
-
-	
-

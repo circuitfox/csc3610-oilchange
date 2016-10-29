@@ -9,15 +9,15 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.aurora.oilchange.controller.AddVehicleController">
 	<children>
 		<Label layoutX="20.0" layoutY="18.0" text="Make:" />
-		<TextField fx:id="txtMake" disable="true" layoutX="219.0" layoutY="14.0" prefHeight="25.0" prefWidth="80.0" />
+		<TextField fx:id="txtMake" visible="false" layoutX="219.0" layoutY="14.0" prefHeight="25.0" prefWidth="80.0" />
 		<Label layoutX="14.0" layoutY="59.0" text="Model:" />
-		<TextField fx:id="txtModel" disable="true" layoutX="219.0" layoutY="55.0" prefHeight="25.0" prefWidth="80.0" />
+		<TextField fx:id="txtModel" visible="false" layoutX="219.0" layoutY="55.0" prefHeight="25.0" prefWidth="80.0" />
 		<Label layoutX="23.0" layoutY="98.0" text="Year:" />
 		<TextField fx:id="txtYear" layoutX="58.0" layoutY="94.0" prefHeight="25.0" prefWidth="80.0" />
 		<Label layoutX="19.0" layoutY="135.0" text="Date:" />
 		<DatePicker fx:id="dtDate" layoutX="58.0" layoutY="131.0" prefHeight="25.0" prefWidth="145.0" />
-      <Label fx:id="lblDateError" layoutX="219.0" layoutY="98.0" styleClass="validation-error" text="Use exactly 4 digits" visible="false" />
-      <ComboBox fx:id="cbMake" layoutX="56.0" layoutY="14.0" prefWidth="150.0" />
-      <ComboBox fx:id="cbModel" layoutX="56.0" layoutY="55.0" prefWidth="150.0" />
+		<Label fx:id="lblDateError" layoutX="219.0" layoutY="98.0" styleClass="validation-error" text="Use exactly 4 digits" visible="false" />
+		<ComboBox fx:id="cbMake" layoutX="56.0" layoutY="14.0" prefWidth="150.0" />
+		<ComboBox fx:id="cbModel" layoutX="56.0" layoutY="55.0" prefWidth="150.0" />
 	</children>
 </AnchorPane>

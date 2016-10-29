@@ -53,9 +53,16 @@ public class AddController {
     private AddOilManualController oilManualController;
     private AddSummaryController summaryController;
 
+    public AddController() {
+        vehicleModel = new VehicleModel();
+        oilModel = new OilModel();
+        oilChangeModel = new OilChangeModel();
+        dateModel = new DateModel();
+    }
 
     @FXML
     private void initialize() {
+        System.out.println("AddController init");
         loadStage(AddStage.VEHICLE);
         hbVehicle.getStyleClass().add("stage");
         currentStage = AddStage.VEHICLE;
@@ -64,11 +71,12 @@ public class AddController {
         btnNext.setOnAction(e -> {
             switch(currentStage) {
                 case VEHICLE:
-                    hbVehicle.getStyleClass().remove("stage");
-                    hbOil.getStyleClass().add("stage");
-                    loadStage(AddStage.OIL);
-                    currentStage = AddStage.OIL;
-                    //}
+                    if (vehicleController.validate()) {
+                        hbVehicle.getStyleClass().remove("stage");
+                        hbOil.getStyleClass().add("stage");
+                        loadStage(AddStage.OIL);
+                        currentStage = AddStage.OIL;
+                    }
                     break;
                 case OIL:
                     hbOil.getStyleClass().remove("stage");
@@ -108,22 +116,6 @@ public class AddController {
         btnCancel.setOnAction(e -> closeStage());
     }
 
-    public void setVehicleModel(VehicleModel vehicleModel) {
-        this.vehicleModel = vehicleModel;
-    }
-
-    public void setOilModel(OilModel oilModel) {
-        this.oilModel = oilModel;
-    }
-
-    public void setOilChangeModel(OilChangeModel oilChangeModel) {
-        this.oilChangeModel = oilChangeModel;
-    }
-
-    public void setDateModel(DateModel dateModel) {
-        this.dateModel = dateModel;
-    }
-
     private enum AddStage {
         VEHICLE,
         OIL,
@@ -150,12 +142,12 @@ public class AddController {
         AnchorPane currentPane = new AnchorPane();
         switch (stage) {
             case VEHICLE:
-                loader = new FXMLLoader(getClass().getResource("AddVehicleView.fxml"));
+                loader = new FXMLLoader(getClass().getResource("/edu/aurora/oilchange/ui/AddVehicleView.fxml"));
                 try {
                     currentPane = loader.load();
                 } catch (IOException ex) {
                     // this should ideally never happen
-                    handleLoadingError("AddVehicleView.fxml");
+                    handleLoadingError("/edu/aurora/oilchange/ui/AddVehicleView.fxml");
                 }
                 vehicleController = loader.getController();
                 vehicleController.setVehicleModel(vehicleModel);
@@ -168,22 +160,22 @@ public class AddController {
                 //if (VehicleMake.hasOil(vehicleModel.getMake()) && !onOilStage) {
                 //
                 //} else {
-                loader = new FXMLLoader(getClass().getResource("AddOilManualView.fxml"));
+                loader = new FXMLLoader(getClass().getResource("/edu/aurora/oilchange/ui/AddOilManualView.fxml"));
                 try {
                     currentPane = loader.load();
                 } catch (IOException ex) {
-                    handleLoadingError("AddOilManualView.fxml");
+                    handleLoadingError("/edu/aurora/oilchange/ui/AddOilManualView.fxml");
                 }
                 oilManualController = loader.getController();
                 oilManualController.setOilModel(oilModel);
                 pane.setCenter(currentPane);
                 break;
             case SUMMARY:
-                loader = new FXMLLoader(getClass().getResource("AddSummaryView.fxml"));
+                loader = new FXMLLoader(getClass().getResource("/edu/aurora/oilchange/AddSummaryView.fxml"));
                 try {
                     currentPane = loader.load();
                 } catch (IOException ex) {
-                    handleLoadingError("AddSummaryView.fxml");
+                    handleLoadingError("/edu/aurora/oilchange/AddSummaryView.fxml");
                 }
                 summaryController = loader.getController();
                 summaryController.setVehicleModel(vehicleModel);

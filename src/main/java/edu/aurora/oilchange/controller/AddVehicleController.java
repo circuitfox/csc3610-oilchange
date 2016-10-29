@@ -1,14 +1,12 @@
 package edu.aurora.oilchange.controller;
 
-import edu.aurora.oilchange.ui.AppLauncher;
+import edu.aurora.oilchange.VehicleMake;
 import edu.aurora.oilchange.ui.DateModel;
 import edu.aurora.oilchange.ui.VehicleModel;
 
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 import java.time.LocalDate;
 
@@ -18,7 +16,11 @@ public class AddVehicleController {
 	@FXML
 	private Button btnCancel;
 	@FXML
+	private ComboBox<String> cbMake;
+	@FXML
 	private TextField txtMake;
+	@FXML
+	private ComboBox<String> cbModel;
 	@FXML
 	private TextField txtModel;
 	@FXML
@@ -26,12 +28,12 @@ public class AddVehicleController {
 	@FXML
 	private DatePicker dtDate;
 	@FXML
-	private TextArea txtWarning;
+	private Label lblDateError;
 
 	private VehicleModel vehicleModel;
 	private DateModel dateModel;
 
-	public VehicleController() {
+	public AddVehicleController() {
 		vehicleModel = new VehicleModel();
 		dateModel = new DateModel();
 	}
@@ -39,9 +41,33 @@ public class AddVehicleController {
 	@FXML
 	private void initialize() {
         dtDate.setValue(LocalDate.of(dateModel.getYear(), dateModel.getMonth(), dateModel.getDay()));
+        cbMake.getItems().setAll(VehicleMake.stringValues());
+        cbMake.valueProperty().addListener((observable, oldValue, newValue) -> {
+            VehicleMake value = VehicleMake.fromString(newValue);
+            if (value == VehicleMake.OTHER) {
+                cbModel.setDisable(true);
+            } else {
+                cbModel.setDisable(false);
+                cbModel.getItems().setAll(VehicleMake.vehicleMap.get(value).split(", "));
+                cbModel.getItems().add("Other");
+                vehicleModel.setMake(newValue);
+            }
+        });
 
+        cbModel.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.equalsIgnoreCase("Other")) {
+                vehicleModel.setModel(newValue);
+            }
+        });
+
+        txtMake.visibleProperty().bind(Bindings.equal(cbMake.valueProperty(), "Other"));
 		txtMake.textProperty().bindBidirectional(vehicleModel.makeProperty());
+
+        txtModel.visibleProperty().bind(Bindings
+                .equal(cbMake.valueProperty(), "Other")
+                .or(Bindings.equal(cbModel.valueProperty(), "Other")));
         txtModel.textProperty().bindBidirectional(vehicleModel.modelProperty());
+
 		txtYear.textProperty().bindBidirectional(vehicleModel.yearProperty());
 
 		dtDate.valueProperty().addListener((observable, oldValue, newValue) -> {
@@ -49,33 +75,6 @@ public class AddVehicleController {
 			dateModel.setDay(newValue.getDayOfMonth());
 			dateModel.setYear(newValue.getYear());
 		});
-
-		btnNext.setOnAction(e -> {
-            boolean fail = false;
-            String error = "";
-
-            if (Validations.digits(txtMake.getText()).any()) {
-                error += "Please Only use letters for the make.";
-                fail = true;
-			}
-
-			if (Validations.digits(txtModel.getText()).any()) {
-				error += " Please Only use letters for the model.";
-                fail = true;
-			}
-
-			if (!Validations.digits(txtYear.getText()).repeat(4)) {
-				error += " Please only use four numbers for the year.";
-				fail = true;
-			}
-
-			if (fail) {
-				txtWarning.setText(error);
-			} else {
-				AppLauncher.root.setCenter(AppLauncher.oil);
-			}
-		});
-		btnCancel.setOnAction(e -> System.exit(1));
 	}
 
 	public void setVehicleModel(VehicleModel model) {
@@ -84,5 +83,19 @@ public class AddVehicleController {
 
 	public void setDateModel(DateModel model) {
 		this.dateModel = model;
+	}
+
+	public boolean validate() {
+		boolean valid = true;
+
+		if (!Validations.digits(txtYear.getText()).repeat(4)) {
+			lblDateError.setVisible(true);
+			valid = false;
+		}
+
+		if (valid) {
+            lblDateError.setVisible(false);
+        }
+		return valid;
 	}
 }
