@@ -1,46 +1,59 @@
 package edu.aurora.oilchange;
 
-public class Customer {
-	private Vehicle vehicle;
-	private Oil oil;
-	private int idNum;
+public class Customer {;
+    private int id;
+    private Vehicle vehicle;
+    private Oil oil;
+    private Date date;
 
-	public Customer() {
+    public Customer() {
+        this.id = 0;
+        this.vehicle = new Vehicle();
+        this.oil = new Oil();
+        this.date = new Date();
+    }
 
-	}
+    public Customer(int id, Vehicle vehicle, Oil oil, Date date) {
+        this.id = id;
+        this.vehicle = vehicle;
+        this.oil = oil;
+        this.date = date;
+    }
 
-	public Customer(Vehicle vehicle, Oil oil, int idNum) {
-		this.vehicle = vehicle;
-		this.oil = oil;
-		this.idNum = idNum;
-	}
+    public Vehicle getVehicle() {
+        return vehicle;
+    }
 
-	public Vehicle getVehicle() {
-		return vehicle;
-	}
+    public void setVehicle(Vehicle vehicle) {
+        this.vehicle = vehicle;
+    }
 
-	public void setVehicle(Vehicle vehicle) {
-		this.vehicle = vehicle;
-	}
+    public Oil getOil() {
+        return oil;
+    }
 
-	public Oil getOil() {
-		return oil;
-	}
+    public void setOil(Oil oil) {
+        this.oil = oil;
+    }
 
-	public void setOil(Oil oil) {
-		this.oil = oil;
-	}
+    public Date getDate() {
+        return date;
+    }
 
-	public int getIdNum() {
-		return idNum;
-	}
+    public void setDate(Date date) {
+        this.date = date;
+    }
 
-	public void setIdNum(int idNum) {
-		this.idNum = idNum;
-	}
+    public int getId() {
+        return id;
+    }
 
-	@Override
-	public String toString() {
-		return "Customer [vehicle=" + vehicle + ", oil=" + oil + ", idNum=" + idNum + "]";
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "Customer [vehicle=" + vehicle + ", oil=" + oil + ", idNum=" + id + "]";
+    }
 }
