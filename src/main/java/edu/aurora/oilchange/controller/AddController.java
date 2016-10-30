@@ -79,11 +79,14 @@ public class AddController {
                     }
                     break;
                 case OIL:
-                    hbOil.getStyleClass().remove("stage");
-                    hbSummary.getStyleClass().add("stage");
-                    loadStage(AddStage.SUMMARY);
-                    btnNext.setText("OK");
-                    currentStage = AddStage.SUMMARY;
+                    // check against default controller first
+                    if (oilManualController.validate()) {
+                        hbOil.getStyleClass().remove("stage");
+                        hbSummary.getStyleClass().add("stage");
+                        loadStage(AddStage.SUMMARY);
+                        btnNext.setText("OK");
+                        currentStage = AddStage.SUMMARY;
+                    }
                     break;
                 case SUMMARY:
                     // TODO: DB call here
@@ -108,7 +111,6 @@ public class AddController {
                     loadStage(AddStage.OIL);
                     btnNext.setText("Next");
                     currentStage = AddStage.OIL;
-                    //}
                     break;
             }
         });

@@ -1,11 +1,9 @@
 package edu.aurora.oilchange.controller;
 
-import edu.aurora.oilchange.ui.AppLauncher;
 import edu.aurora.oilchange.ui.OilModel;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.util.converter.BigDecimalStringConverter;
 import javafx.util.converter.NumberStringConverter;
@@ -24,17 +22,21 @@ public class AddOilManualController {
 	@FXML
 	private TextField txtFilterBrand;
 	@FXML
-	private Button btnBack;
-	@FXML
-	private Button btnCancel;
-	@FXML
-	private Button btnNext;
-	@FXML
-	private TextArea txtWarning;
+    private Label lblQuantityError;
+    @FXML
+    private Label lblPriceError;
+    @FXML
+    private Label lblFilterCostError;
+    @FXML
+    private Label lblFilterBrandError;
+    @FXML
+    private Label lblTypeError;
+    @FXML
+    private Label lblBrandError;
 
 	private OilModel oilModel;
 
-    public OilController() {
+	public AddOilManualController() {
         oilModel = new OilModel();
     }
 
@@ -51,52 +53,53 @@ public class AddOilManualController {
         txtOilPrice.textProperty().bindBidirectional(oilModel.pricePerQuartProperty(), bigDecimalStringConverter);
         txtFilterBrand.textProperty().bindBidirectional(oilModel.filterBrandProperty());
         txtFilterCost.textProperty().bindBidirectional(oilModel.filterCostProperty(), bigDecimalStringConverter);
-
-        btnNext.setOnAction(e -> {
-            boolean fail = false;
-			String error = "";
-
-			if (Validations.digits(txtOilType.getText()).any()) {
-				error += "Please only use letters for Oil Type. ";
-                fail = true;
-			}
-
-			if (Validations.digits(txtOilBrand.getText()).any()) {
-				error += "Please only use letters for Oil Brand. ";
-                fail = true;
-			}
-
-			if (!Validations.digits(txtOilQuantity.getText()).some()) {
-				error += "Please only use numbers for Oil Quantity. ";
-                fail = true;
-			}
-
-			if (Validations.alphabetical(txtOilPrice.getText()).any()) {
-                error += " Enter a valid cost for OilPrice. I.E 1.99 ";
-                fail = true;
-			}
-
-			if (Validations.digits(txtFilterBrand.getText()).any()) {
-				error += "Please only use letters for Filter Type. ";
-                fail = true;
-			}
-
-			if (Validations.alphabetical(txtFilterCost.getText()).any()) {
-                error += " Enter a valid cost for Filter Price. I.E 1.99 ";
-                fail = true;
-			}
-
-			if (fail) {
-				txtWarning.setText(error);
-			} else {
-				AppLauncher.root.setCenter(AppLauncher.summary);
-			}
-		});
-		btnBack.setOnAction(e -> AppLauncher.root.setCenter(AppLauncher.vehicle));
-		btnCancel.setOnAction(e -> System.exit(1));
 	}
 
 	public void setOilModel(OilModel model) {
-        this.oilModel = model;
-    }
+		this.oilModel = model;
+	}
+
+    public boolean validate() {
+		boolean valid = true;
+
+		if (Validations.digits(txtOilType.getText()).any()) {
+			lblTypeError.setVisible(true);
+			valid = false;
+		}
+
+		if (Validations.digits(txtOilBrand.getText()).any()) {
+			lblBrandError.setVisible(true);
+			valid = false;
+		}
+
+		if (!Validations.digits(txtOilQuantity.getText()).some()) {
+			lblQuantityError.setVisible(true);
+			valid = false;
+		}
+
+		if (Validations.alphabetical(txtOilPrice.getText()).any()) {
+			lblPriceError.setVisible(true);
+			valid = false;
+		}
+
+		if (Validations.digits(txtFilterBrand.getText()).any()) {
+			lblFilterBrandError.setVisible(true);
+			valid = false;
+		}
+
+		if (Validations.alphabetical(txtFilterCost.getText()).any()) {
+			lblFilterCostError.setVisible(true);
+			valid = false;
+		}
+
+		if (valid) {
+			lblQuantityError.setVisible(true);
+			lblPriceError.setVisible(true);
+			lblFilterCostError.setVisible(true);
+			lblFilterBrandError.setVisible(true);
+			lblTypeError.setVisible(true);
+			lblBrandError.setVisible(true);
+		}
+		return valid;
+	}
 }
