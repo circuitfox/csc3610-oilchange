@@ -9,19 +9,19 @@ import javafx.util.converter.BigDecimalStringConverter;
 import javafx.util.converter.NumberStringConverter;
 
 public class AddOilManualController {
-	@FXML
-	private TextField txtOilType;
-	@FXML
-	private TextField txtOilBrand;
-	@FXML
-	private TextField txtOilQuantity;
-	@FXML
-	private TextField txtOilPrice;
-	@FXML
-	private TextField txtFilterCost;
-	@FXML
-	private TextField txtFilterBrand;
-	@FXML
+    @FXML
+    private TextField txtOilType;
+    @FXML
+    private TextField txtOilBrand;
+    @FXML
+    private TextField txtOilQuantity;
+    @FXML
+    private TextField txtOilPrice;
+    @FXML
+    private TextField txtFilterCost;
+    @FXML
+    private TextField txtFilterBrand;
+    @FXML
     private Label lblQuantityError;
     @FXML
     private Label lblPriceError;
@@ -34,14 +34,14 @@ public class AddOilManualController {
     @FXML
     private Label lblBrandError;
 
-	private OilModel oilModel;
+    private OilModel oilModel;
 
-	public AddOilManualController() {
+    public AddOilManualController() {
         oilModel = new OilModel();
     }
 
-	@FXML
-	private void initialize() {
+    @FXML
+    private void initialize() {
         // TODO: Use TextFormatter for validation
         NumberStringConverter numberStringConverter = new NumberStringConverter();
         BigDecimalStringConverter bigDecimalStringConverter = new BigDecimalStringConverter();
@@ -53,53 +53,53 @@ public class AddOilManualController {
         txtOilPrice.textProperty().bindBidirectional(oilModel.pricePerQuartProperty(), bigDecimalStringConverter);
         txtFilterBrand.textProperty().bindBidirectional(oilModel.filterBrandProperty());
         txtFilterCost.textProperty().bindBidirectional(oilModel.filterCostProperty(), bigDecimalStringConverter);
-	}
+    }
 
-	public void setOilModel(OilModel model) {
-		this.oilModel = model;
-	}
+    public void setOilModel(OilModel model) {
+        this.oilModel = model;
+    }
 
     public boolean validate() {
-		boolean valid = true;
+        boolean valid = true;
 
-		if (Validations.digits(txtOilType.getText()).any()) {
-			lblTypeError.setVisible(true);
-			valid = false;
-		}
+        if (Validations.digits(txtOilType.getText()).any()) {
+            lblTypeError.setVisible(true);
+            valid = false;
+        }
 
-		if (Validations.digits(txtOilBrand.getText()).any()) {
-			lblBrandError.setVisible(true);
-			valid = false;
-		}
+        if (Validations.digits(txtOilBrand.getText()).any()) {
+            lblBrandError.setVisible(true);
+            valid = false;
+        }
 
-		if (!Validations.digits(txtOilQuantity.getText()).some()) {
-			lblQuantityError.setVisible(true);
-			valid = false;
-		}
+        if (!Validations.digits(txtOilQuantity.getText()).some()) {
+            lblQuantityError.setVisible(true);
+            valid = false;
+        }
 
-		if (Validations.alphabetical(txtOilPrice.getText()).any()) {
-			lblPriceError.setVisible(true);
-			valid = false;
-		}
+        if (Validations.alphabetical(txtOilPrice.getText()).any()) {
+            lblPriceError.setVisible(true);
+            valid = false;
+        }
 
-		if (Validations.digits(txtFilterBrand.getText()).any()) {
-			lblFilterBrandError.setVisible(true);
-			valid = false;
-		}
+        if (Validations.digits(txtFilterBrand.getText()).any()) {
+            lblFilterBrandError.setVisible(true);
+            valid = false;
+        }
 
-		if (Validations.alphabetical(txtFilterCost.getText()).any()) {
-			lblFilterCostError.setVisible(true);
-			valid = false;
-		}
+        if (Validations.alphabetical(txtFilterCost.getText()).any()) {
+            lblFilterCostError.setVisible(true);
+            valid = false;
+        }
 
-		if (valid) {
-			lblQuantityError.setVisible(true);
-			lblPriceError.setVisible(true);
-			lblFilterCostError.setVisible(true);
-			lblFilterBrandError.setVisible(true);
-			lblTypeError.setVisible(true);
-			lblBrandError.setVisible(true);
-		}
-		return valid;
-	}
+        if (valid) {
+            lblQuantityError.setVisible(true);
+            lblPriceError.setVisible(true);
+            lblFilterCostError.setVisible(true);
+            lblFilterBrandError.setVisible(true);
+            lblTypeError.setVisible(true);
+            lblBrandError.setVisible(true);
+        }
+        return valid;
+    }
 }

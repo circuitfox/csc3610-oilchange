@@ -13,30 +13,30 @@ import java.math.BigDecimal;
 import java.text.DecimalFormat;
 
 public class AddSummaryController {
-	@FXML
-	private Label lblMake;
-	@FXML
-	private Label lblModel;
-	@FXML
-	private Label lblYear;
-	@FXML
-	private Label lblDate;
-	@FXML
-	private Label lblOilType;
-	@FXML
-	private Label lblOilBrand;
-	@FXML
-	private Label lblOilCost;
-	@FXML
-	private Label lblFilterBrand;
-	@FXML
-	private Label lblFilterCost;
-	@FXML
-	private Label lblOilAmount;
+    @FXML
+    private Label lblMake;
+    @FXML
+    private Label lblModel;
+    @FXML
+    private Label lblYear;
+    @FXML
+    private Label lblDate;
+    @FXML
+    private Label lblOilType;
+    @FXML
+    private Label lblOilBrand;
+    @FXML
+    private Label lblOilCost;
+    @FXML
+    private Label lblFilterBrand;
+    @FXML
+    private Label lblFilterCost;
+    @FXML
+    private Label lblOilAmount;
     @FXML
     private Label lblTotalCost;
 
-	private VehicleModel vehicleModel;
+    private VehicleModel vehicleModel;
     private OilModel oilModel;
     private OilChangeModel oilChangeModel;
     private DateModel dateModel;
@@ -48,8 +48,8 @@ public class AddSummaryController {
         dateModel = new DateModel();
     }
 
-	@FXML
-	private void initialize() {
+    @FXML
+    private void initialize() {
         DecimalFormat currencyFormat = new DecimalFormat("#0.00");
 
         lblMake.textProperty().bind(vehicleModel.makeProperty());
@@ -64,7 +64,7 @@ public class AddSummaryController {
         lblOilAmount.textProperty().bind(Bindings.createStringBinding(() -> oilModel.getQuantity() + "qt",
                 oilModel.quantityProperty()));
         lblOilCost.textProperty().bind(Bindings.createStringBinding(() ->
-                "$" + currencyFormat.format(oilModel.getPricePerQuart()) + "/qt",
+                        "$" + currencyFormat.format(oilModel.getPricePerQuart()) + "/qt",
                 oilModel.pricePerQuartProperty()));
         lblFilterBrand.textProperty().bind(oilModel.filterBrandProperty());
         lblFilterCost.textProperty().bind(Bindings.createStringBinding(
@@ -72,13 +72,13 @@ public class AddSummaryController {
                 oilModel.filterCostProperty()));
 
         lblTotalCost.textProperty().bind(Bindings.createStringBinding(() -> {
-            BigDecimal total = oilModel.getPricePerQuart()
-                    .multiply(BigDecimal.valueOf(oilModel.getQuantity()))
-                    .add(oilModel.getFilterCost()).add(oilChangeModel.getTotal());
-            return "$" + currencyFormat.format(total);
-        }, oilModel.quantityProperty(), oilModel.pricePerQuartProperty(),
+                    BigDecimal total = oilModel.getPricePerQuart()
+                            .multiply(BigDecimal.valueOf(oilModel.getQuantity()))
+                            .add(oilModel.getFilterCost()).add(oilChangeModel.getTotal());
+                    return "$" + currencyFormat.format(total);
+                }, oilModel.quantityProperty(), oilModel.pricePerQuartProperty(),
                 oilModel.filterCostProperty(), oilChangeModel.laborHoursProperty()));
-	}
+    }
 
     public void setVehicleModel(VehicleModel vehicleModel) {
         this.vehicleModel = vehicleModel;
