@@ -1,22 +1,18 @@
 package edu.aurora.oilchange.controller;
 
-import edu.aurora.oilchange.Customer;
-import edu.aurora.oilchange.Main;
-import edu.aurora.oilchange.ui.*;
+import edu.aurora.oilchange.ui.DateModel;
+import edu.aurora.oilchange.ui.OilChangeModel;
+import edu.aurora.oilchange.ui.OilModel;
+import edu.aurora.oilchange.ui.VehicleModel;
 
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.util.converter.BigDecimalStringConverter;
-import javafx.util.converter.NumberStringConverter;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 
 public class AddSummaryController {
-    @FXML
-	private Button btnBack;
 	@FXML
 	private Label lblMake;
 	@FXML
@@ -39,24 +35,21 @@ public class AddSummaryController {
 	private Label lblOilAmount;
     @FXML
     private Label lblTotalCost;
-	@FXML
-	private Button btnSave;
 
 	private VehicleModel vehicleModel;
     private OilModel oilModel;
     private OilChangeModel oilChangeModel;
     private DateModel dateModel;
 
-    public SummaryController() {
+    public AddSummaryController() {
         vehicleModel = new VehicleModel();
         oilModel = new OilModel();
         oilChangeModel = new OilChangeModel();
         dateModel = new DateModel();
     }
+
 	@FXML
 	private void initialize() {
-        NumberStringConverter numberStringConverter = new NumberStringConverter();
-        BigDecimalStringConverter bigDecimalStringConverter = new BigDecimalStringConverter();
         DecimalFormat currencyFormat = new DecimalFormat("#0.00");
 
         lblMake.textProperty().bind(vehicleModel.makeProperty());
@@ -85,17 +78,6 @@ public class AddSummaryController {
             return "$" + currencyFormat.format(total);
         }, oilModel.quantityProperty(), oilModel.pricePerQuartProperty(),
                 oilModel.filterCostProperty(), oilChangeModel.laborHoursProperty()));
-
-		btnBack.setOnAction(e -> AppLauncher.root.setCenter(AppLauncher.oil));
-
-        // TODO: After summary, fire off DB command.
-		btnSave.setOnAction(e -> {
-            // FIXME: Replace this with setters to Main for now.
-			int id = (int) (Math.random() * 999999);
-			Main.customer = new Customer(vehicleModel.getVehicle(), oilModel.getOil(), id);
-			System.out.println("Information stored. Customer ID is " + id);
-		});
-
 	}
 
     public void setVehicleModel(VehicleModel vehicleModel) {
