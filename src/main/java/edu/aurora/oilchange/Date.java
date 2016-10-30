@@ -89,7 +89,7 @@ public class Date implements Comparable<Date> {
 	 */
 	@Override
 	public String toString() {
-		return String.format("%d-%2d-%2d", year, month, day);
+		return String.format("%d-%02d-%02d", year, month, day);
 	}
 
 	// returns date in ascending order starting with year, then month, then the day

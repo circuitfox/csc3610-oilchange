@@ -93,12 +93,12 @@ public class AddOilManualController {
         }
 
         if (valid) {
-            lblQuantityError.setVisible(true);
-            lblPriceError.setVisible(true);
-            lblFilterCostError.setVisible(true);
-            lblFilterBrandError.setVisible(true);
-            lblTypeError.setVisible(true);
-            lblBrandError.setVisible(true);
+            lblQuantityError.setVisible(false);
+            lblPriceError.setVisible(false);
+            lblFilterCostError.setVisible(false);
+            lblFilterBrandError.setVisible(false);
+            lblTypeError.setVisible(false);
+            lblBrandError.setVisible(false);
         }
         return valid;
     }

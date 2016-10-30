@@ -1,8 +1,12 @@
 package edu.aurora.oilchange.controller;
 
-import edu.aurora.oilchange.Customer;
-import edu.aurora.oilchange.Date;
+import edu.aurora.oilchange.*;
 
+import edu.aurora.oilchange.ui.DateModel;
+import edu.aurora.oilchange.ui.OilChangeModel;
+import edu.aurora.oilchange.ui.OilModel;
+import edu.aurora.oilchange.ui.VehicleModel;
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -52,13 +56,44 @@ public class MainController {
             }
         });
 
+        lblId.textProperty().bind(Bindings.createStringBinding(() -> {
+            Customer customer = tblCustomers.getSelectionModel().getSelectedItem();
+            if (customer == null) {
+                return "";
+            } else {
+                return String.valueOf(customer.getId());
+            }
+        }));
+
+        lblStatus.textProperty().bind(Bindings.createStringBinding(() -> {
+            Customer customer = tblCustomers.getSelectionModel().getSelectedItem();
+            if (customer == null) {
+                lblStatus.getStyleClass().removeAll("overdue", "warn");
+                return "";
+            } else {
+                Date today = new Date();
+                if (customer.getDate().compareTo(today) < 0) {
+                    lblStatus.getStyleClass().remove("warn");
+                    lblStatus.getStyleClass().add("overdue");
+                    return "OVERDUE";
+                } else if ((customer.getDate().getMonth() - today.getMonth() < 1)) {
+                    lblStatus.getStyleClass().remove("overdue");
+                    lblStatus.getStyleClass().add("warn");
+                    return "NEAR-DUE";
+                } else {
+                    lblStatus.getStyleClass().removeAll("overdue", "warn");
+                    return "OKAY";
+                }
+            }
+        }));
+
         btnAdd.setOnAction(e -> {
             Stage addStage = new Stage();
             addStage.initOwner(btnAdd.getScene().getWindow());
             addStage.initModality(Modality.WINDOW_MODAL);
             addStage.setTitle("Add Customer");
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/edu/aurora/ui/AddView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/edu/aurora/oilchange/ui/AddView.fxml"));
             BorderPane addPane = new BorderPane();
             try {
                 addPane = loader.load();
@@ -71,7 +106,8 @@ public class MainController {
 
             Scene addScene = new Scene(addPane);
             // TODO: Move stylesheets & scaling to a separate class
-            addScene.getStylesheets().add(getClass().getResource("/edu/aurora/ui/css/common.css").toExternalForm());
+            addScene.getStylesheets().add(getClass().getResource(
+                    "/edu/aurora/oilchange/ui/css/common.css").toExternalForm());
             addStage.setScene(addScene);
             addStage.show();
             // TODO: Update table view here
@@ -83,10 +119,31 @@ public class MainController {
             updateStage.initModality(Modality.WINDOW_MODAL);
             updateStage.setTitle("Update Customer Information");
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/edu/aurora/oilchange/UpdateView.fxml"));
+            Customer customer = tblCustomers.getSelectionModel().getSelectedItem();
+            if (customer == null) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, "No customer selected for update.");
+                alert.show();
+                return;
+            }
+
+            VehicleModel vehicleModel = new VehicleModel();
+            DateModel dateModel = new DateModel();
+            OilModel oilModel = new OilModel();
+            OilChangeModel oilChangeModel = new OilChangeModel();
+
+            vehicleModel.setVehicle(customer.getVehicle());
+            dateModel.setDate(customer.getDate());
+            oilModel.setOil(customer.getOil());
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/edu/aurora/oilchange/ui/UpdateView.fxml"));
             AnchorPane updatePane = new AnchorPane();
             try {
                 updatePane = loader.load();
+                UpdateController updateController = loader.getController();
+                updateController.setVehicleModel(vehicleModel);
+                updateController.setDateModel(dateModel);
+                updateController.setOilModel(oilModel);
+                updateController.setOilChangeModel(oilChangeModel);
             } catch (IOException ex) {
                 Alert alert = new Alert(Alert.AlertType.ERROR,
                         "An IOException has occurred loading the Update view. Updating will be unavailable.");
