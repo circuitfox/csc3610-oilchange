@@ -31,7 +31,7 @@
                   <Insets />
                </HBox.margin>
             </Label>
-            <Label prefHeight="26.0" prefWidth="36.0" text="Status:">
+            <Label prefHeight="26.0" prefWidth="55.0" text="Status:">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
@@ -41,7 +41,7 @@
                   <Insets />
                </HBox.margin>
             </Label>
-            <Label prefHeight="17.0" prefWidth="656.0">
+            <Label prefHeight="18.0" prefWidth="630.0">
                <HBox.margin>
                   <Insets />
                </HBox.margin></Label>
@@ -92,7 +92,7 @@
       </TableView>
    </center>
    <top>
-      <MenuBar BorderPane.alignment="CENTER" fx:id="menuBar">
+      <MenuBar fx:id="menuBar" BorderPane.alignment="CENTER">
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
