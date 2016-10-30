@@ -43,20 +43,12 @@ public class AddOilManualController {
     @FXML
     private void initialize() {
         // TODO: Use TextFormatter for validation
-        NumberStringConverter numberStringConverter = new NumberStringConverter();
-        BigDecimalStringConverter bigDecimalStringConverter = new BigDecimalStringConverter();
-
-        // We need to have bidirectional bindings to convert String to Number/BigDecimal
-        txtOilType.textProperty().bindBidirectional(oilModel.oilTypeProperty());
-        txtOilBrand.textProperty().bindBidirectional(oilModel.oilBrandProperty());
-        txtOilQuantity.textProperty().bindBidirectional(oilModel.quantityProperty(), numberStringConverter);
-        txtOilPrice.textProperty().bindBidirectional(oilModel.pricePerQuartProperty(), bigDecimalStringConverter);
-        txtFilterBrand.textProperty().bindBidirectional(oilModel.filterBrandProperty());
-        txtFilterCost.textProperty().bindBidirectional(oilModel.filterCostProperty(), bigDecimalStringConverter);
+        bindOil();
     }
 
     public void setOilModel(OilModel model) {
         this.oilModel = model;
+        bindOil();
     }
 
     public boolean validate() {
@@ -101,5 +93,18 @@ public class AddOilManualController {
             lblBrandError.setVisible(false);
         }
         return valid;
+    }
+
+    private void bindOil() {
+        NumberStringConverter numberStringConverter = new NumberStringConverter();
+        BigDecimalStringConverter bigDecimalStringConverter = new BigDecimalStringConverter();
+
+        // We need to have bidirectional bindings to convert String to Number/BigDecimal
+        txtOilType.textProperty().bindBidirectional(oilModel.oilTypeProperty());
+        txtOilBrand.textProperty().bindBidirectional(oilModel.oilBrandProperty());
+        txtOilQuantity.textProperty().bindBidirectional(oilModel.quantityProperty(), numberStringConverter);
+        txtOilPrice.textProperty().bindBidirectional(oilModel.pricePerQuartProperty(), bigDecimalStringConverter);
+        txtFilterBrand.textProperty().bindBidirectional(oilModel.filterBrandProperty());
+        txtFilterCost.textProperty().bindBidirectional(oilModel.filterCostProperty(), bigDecimalStringConverter);
     }
 }
