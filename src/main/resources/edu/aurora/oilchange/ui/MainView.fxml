@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1">
 	<bottom>
 		<HBox alignment="CENTER_RIGHT" prefHeight="68.0" prefWidth="1200.0" spacing="15.0" BorderPane.alignment="CENTER">
 			<opaqueInsets>
@@ -66,6 +66,7 @@
    <center>
       <TableView fx:id="tblCustomers" editable="true" BorderPane.alignment="CENTER">
         <columns>
+            <TableColumn prefWidth="75.0" text="ID" />
           <TableColumn maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="328.0" text="Vehicle">
                <columns>
                   <TableColumn prefWidth="75.0" text="Make" />

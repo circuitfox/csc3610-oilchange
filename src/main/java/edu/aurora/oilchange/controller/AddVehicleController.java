@@ -1,90 +1,101 @@
 package edu.aurora.oilchange.controller;
 
-import edu.aurora.oilchange.ui.AppLauncher;
+import edu.aurora.oilchange.VehicleMake;
 import edu.aurora.oilchange.ui.DateModel;
 import edu.aurora.oilchange.ui.VehicleModel;
 
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 import java.time.LocalDate;
 
 public class AddVehicleController {
-	@FXML
-	private Button btnNext;
-	@FXML
-	private Button btnCancel;
-	@FXML
-	private TextField txtMake;
-	@FXML
-	private TextField txtModel;
-	@FXML
-	private TextField txtYear;
-	@FXML
-	private DatePicker dtDate;
-	@FXML
-	private TextArea txtWarning;
+    @FXML
+    private Button btnNext;
+    @FXML
+    private Button btnCancel;
+    @FXML
+    private ComboBox<String> cbMake;
+    @FXML
+    private TextField txtMake;
+    @FXML
+    private ComboBox<String> cbModel;
+    @FXML
+    private TextField txtModel;
+    @FXML
+    private TextField txtYear;
+    @FXML
+    private DatePicker dtDate;
+    @FXML
+    private Label lblDateError;
 
-	private VehicleModel vehicleModel;
-	private DateModel dateModel;
+    private VehicleModel vehicleModel;
+    private DateModel dateModel;
 
-	public VehicleController() {
-		vehicleModel = new VehicleModel();
-		dateModel = new DateModel();
-	}
+    public AddVehicleController() {
+        vehicleModel = new VehicleModel();
+        dateModel = new DateModel();
+    }
 
-	@FXML
-	private void initialize() {
-		dtDate.setValue(LocalDate.of(dateModel.getYear(), dateModel.getMonth(), dateModel.getDay()));
+    @FXML
+    private void initialize() {
+        dtDate.setValue(LocalDate.of(dateModel.getYear(), dateModel.getMonth(), dateModel.getDay()));
+        cbMake.getItems().setAll(VehicleMake.stringValues());
+        cbMake.valueProperty().addListener((observable, oldValue, newValue) -> {
+            VehicleMake value = VehicleMake.fromString(newValue);
+            if (value == VehicleMake.OTHER) {
+                cbModel.setDisable(true);
+            } else {
+                cbModel.setDisable(false);
+                cbModel.getItems().setAll(VehicleMake.vehicleMap.get(value).split(", "));
+                cbModel.getItems().add("Other");
+                vehicleModel.setMake(newValue);
+            }
+        });
 
-		txtMake.textProperty().bindBidirectional(vehicleModel.makeProperty());
-		txtModel.textProperty().bindBidirectional(vehicleModel.modelProperty());
-		txtYear.textProperty().bindBidirectional(vehicleModel.yearProperty());
+        cbModel.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.equalsIgnoreCase("Other")) {
+                vehicleModel.setModel(newValue);
+            }
+        });
 
-		dtDate.valueProperty().addListener((observable, oldValue, newValue) -> {
-			dateModel.setMonth(newValue.getMonthValue());
-			dateModel.setDay(newValue.getDayOfMonth());
-			dateModel.setYear(newValue.getYear());
-		});
+        txtMake.visibleProperty().bind(Bindings.equal(cbMake.valueProperty(), "Other"));
+        txtMake.textProperty().bindBidirectional(vehicleModel.makeProperty());
 
-		btnNext.setOnAction(e -> {
-			boolean fail = false;
-			String error = "";
+        txtModel.visibleProperty().bind(Bindings
+                .equal(cbMake.valueProperty(), "Other")
+                .or(Bindings.equal(cbModel.valueProperty(), "Other")));
+        txtModel.textProperty().bindBidirectional(vehicleModel.modelProperty());
 
-			if (Validations.digits(txtMake.getText()).any()) {
-				error += "Please Only use letters for the make.";
-				fail = true;
-			}
+        txtYear.textProperty().bindBidirectional(vehicleModel.yearProperty());
 
-			if (Validations.digits(txtModel.getText()).any()) {
-				error += " Please Only use letters for the model.";
-				fail = true;
-			}
+        dtDate.valueProperty().addListener((observable, oldValue, newValue) -> {
+            dateModel.setMonth(newValue.getMonthValue());
+            dateModel.setDay(newValue.getDayOfMonth());
+            dateModel.setYear(newValue.getYear());
+        });
+    }
 
-			if (!Validations.digits(txtYear.getText()).repeat(4)) {
-				error += " Please only use four numbers for the year.";
-				fail = true;
-			}
+    public void setVehicleModel(VehicleModel model) {
+        this.vehicleModel = model;
+    }
 
-			if (fail) {
-				txtWarning.setText(error);
-			} else {
-				System.out.println("Test");
-				System.out.println(vehicleModel.toString());
-				AppLauncher.root.setCenter(AppLauncher.oil);
-			}
-		});
-		btnCancel.setOnAction(e -> System.exit(1));
-	}
+    public void setDateModel(DateModel model) {
+        this.dateModel = model;
+    }
 
-	public void setVehicleModel(VehicleModel model) {
-		this.vehicleModel = model;
-	}
+    public boolean validate() {
+        boolean valid = true;
 
-	public void setDateModel(DateModel model) {
-		this.dateModel = model;
-	}
+        if (!Validations.digits(txtYear.getText()).repeat(4)) {
+            lblDateError.setVisible(true);
+            valid = false;
+        }
+
+        if (valid) {
+            lblDateError.setVisible(false);
+        }
+        return valid;
+    }
 }
