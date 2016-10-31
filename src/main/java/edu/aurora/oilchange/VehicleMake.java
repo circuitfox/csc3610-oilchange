@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum VehicleMake {
-	ACURA,
+    ACURA,
     AUDI,
     BENTLEY,
     BMW,
@@ -16,7 +16,7 @@ public enum VehicleMake {
     CHRYSLER,
     DODGE,
     FORD,
-	HONDA,
+    HONDA,
     HYUNDAI,
     INFINITI,
     JEEP,
@@ -37,7 +37,8 @@ public enum VehicleMake {
 
     // Statically initialize the map.
     // TODO: Oil map
-	public static final Map<VehicleMake, String> vehicleMap;
+    public static final Map<VehicleMake, String> vehicleMap;
+
     static {
         Map<VehicleMake, String> map = new HashMap<>();
 
@@ -78,11 +79,6 @@ public enum VehicleMake {
         return modelName != null && modelName.matches(regex);
     }
 
-    @Override
-    public String toString() {
-        return Character.toTitleCase(name().charAt(0)) + name().substring(1).toLowerCase();
-    }
-
     public static VehicleMake fromString(String s) {
         for (VehicleMake v : values()) {
             if (s.equalsIgnoreCase(v.name())) {
@@ -94,5 +90,10 @@ public enum VehicleMake {
 
     public static String[] stringValues() {
         return Arrays.stream(values()).map(VehicleMake::toString).toArray(String[]::new);
+    }
+
+    @Override
+    public String toString() {
+        return Character.toTitleCase(name().charAt(0)) + name().substring(1).toLowerCase();
     }
 }

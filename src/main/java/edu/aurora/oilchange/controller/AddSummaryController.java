@@ -50,14 +50,46 @@ public class AddSummaryController {
 
     @FXML
     private void initialize() {
-        DecimalFormat currencyFormat = new DecimalFormat("#0.00");
+        bindVehicle();
+        bindDate();
+        bindOil();
+        bindTotalCost();
+    }
 
+    public void setVehicleModel(VehicleModel vehicleModel) {
+        this.vehicleModel = vehicleModel;
+        bindVehicle();
+    }
+
+    public void setOilModel(OilModel oilModel) {
+        this.oilModel = oilModel;
+        bindOil();
+        bindTotalCost();
+    }
+
+    public void setOilChangeModel(OilChangeModel oilChangeModel) {
+        this.oilChangeModel = oilChangeModel;
+        bindTotalCost();
+    }
+
+    public void setDateModel(DateModel dateModel) {
+        this.dateModel = dateModel;
+        bindDate();
+    }
+
+    private void bindVehicle() {
         lblMake.textProperty().bind(vehicleModel.makeProperty());
         lblModel.textProperty().bind(vehicleModel.modelProperty());
         lblYear.textProperty().bind(vehicleModel.yearProperty());
+    }
 
+    private void bindDate() {
         lblDate.textProperty().bind(Bindings.createStringBinding(dateModel::toString,
                 dateModel.monthProperty(), dateModel.dayProperty(), dateModel.yearProperty()));
+    }
+
+    private void bindOil() {
+        DecimalFormat currencyFormat = new DecimalFormat("#0.00");
 
         lblOilType.textProperty().bind(oilModel.oilTypeProperty());
         lblOilBrand.textProperty().bind(oilModel.oilBrandProperty());
@@ -70,6 +102,10 @@ public class AddSummaryController {
         lblFilterCost.textProperty().bind(Bindings.createStringBinding(
                 () -> "$" + currencyFormat.format(oilModel.getFilterCost()),
                 oilModel.filterCostProperty()));
+    }
+
+    private void bindTotalCost() {
+        DecimalFormat currencyFormat = new DecimalFormat("#0.00");
 
         lblTotalCost.textProperty().bind(Bindings.createStringBinding(() -> {
                     BigDecimal total = oilModel.getPricePerQuart()
@@ -78,21 +114,5 @@ public class AddSummaryController {
                     return "$" + currencyFormat.format(total);
                 }, oilModel.quantityProperty(), oilModel.pricePerQuartProperty(),
                 oilModel.filterCostProperty(), oilChangeModel.laborHoursProperty()));
-    }
-
-    public void setVehicleModel(VehicleModel vehicleModel) {
-        this.vehicleModel = vehicleModel;
-    }
-
-    public void setOilModel(OilModel oilModel) {
-        this.oilModel = oilModel;
-    }
-
-    public void setOilChangeModel(OilChangeModel oilChangeModel) {
-        this.oilChangeModel = oilChangeModel;
-    }
-
-    public void setDateModel(DateModel dateModel) {
-        this.dateModel = dateModel;
     }
 }

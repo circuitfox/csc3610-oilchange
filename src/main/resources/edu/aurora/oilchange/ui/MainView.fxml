@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.aurora.oilchange.controller.MainController">
 	<bottom>
 		<HBox alignment="CENTER_RIGHT" prefHeight="68.0" prefWidth="1200.0" spacing="15.0" BorderPane.alignment="CENTER">
 			<opaqueInsets>
@@ -31,7 +31,7 @@
                   <Insets />
                </HBox.margin>
             </Label>
-            <Label prefHeight="26.0" prefWidth="36.0" text="Status:">
+            <Label prefHeight="26.0" prefWidth="55.0" text="Status:">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
@@ -41,7 +41,7 @@
                   <Insets />
                </HBox.margin>
             </Label>
-            <Label prefHeight="17.0" prefWidth="656.0">
+            <Label prefHeight="18.0" prefWidth="630.0">
                <HBox.margin>
                   <Insets />
                </HBox.margin></Label>
@@ -92,7 +92,7 @@
       </TableView>
    </center>
    <top>
-      <MenuBar BorderPane.alignment="CENTER">
+      <MenuBar fx:id="menuBar" BorderPane.alignment="CENTER">
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>

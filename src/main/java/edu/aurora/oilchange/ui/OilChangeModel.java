@@ -48,11 +48,9 @@ public class OilChangeModel {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder("Total Labor Cost: $");
-        sb.append(oilChange.getTotal()).append(" (");
-        sb.append(oilChange.getLaborHours()).append(" hours at $");
-        sb.append(OilChange.PER_HOUR).append("per hour, ");
-        sb.append(OilChange.TAX * 100).append("% tax");
-        return sb.toString();
+        return "Total Labor Cost: $" + oilChange.getTotal() + " (" +
+                oilChange.getLaborHours() + " hours at $" +
+                OilChange.PER_HOUR + "per hour, " +
+                OilChange.TAX * 100 + "% tax";
     }
 }

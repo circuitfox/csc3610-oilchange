@@ -61,28 +61,22 @@ public class AddVehicleController {
         });
 
         txtMake.visibleProperty().bind(Bindings.equal(cbMake.valueProperty(), "Other"));
-        txtMake.textProperty().bindBidirectional(vehicleModel.makeProperty());
-
         txtModel.visibleProperty().bind(Bindings
                 .equal(cbMake.valueProperty(), "Other")
                 .or(Bindings.equal(cbModel.valueProperty(), "Other")));
-        txtModel.textProperty().bindBidirectional(vehicleModel.modelProperty());
 
-        txtYear.textProperty().bindBidirectional(vehicleModel.yearProperty());
-
-        dtDate.valueProperty().addListener((observable, oldValue, newValue) -> {
-            dateModel.setMonth(newValue.getMonthValue());
-            dateModel.setDay(newValue.getDayOfMonth());
-            dateModel.setYear(newValue.getYear());
-        });
+        bindVehicle();
+        bindDate();
     }
 
     public void setVehicleModel(VehicleModel model) {
         this.vehicleModel = model;
+        bindVehicle();
     }
 
     public void setDateModel(DateModel model) {
         this.dateModel = model;
+        bindDate();
     }
 
     public boolean validate() {
@@ -97,5 +91,19 @@ public class AddVehicleController {
             lblDateError.setVisible(false);
         }
         return valid;
+    }
+
+    private void bindVehicle() {
+        txtMake.textProperty().bindBidirectional(vehicleModel.makeProperty());
+        txtModel.textProperty().bindBidirectional(vehicleModel.modelProperty());
+        txtYear.textProperty().bindBidirectional(vehicleModel.yearProperty());
+    }
+
+    private void bindDate() {
+        dtDate.valueProperty().addListener((observable, oldValue, newValue) -> {
+            dateModel.setMonth(newValue.getMonthValue());
+            dateModel.setDay(newValue.getDayOfMonth());
+            dateModel.setYear(newValue.getYear());
+        });
     }
 }

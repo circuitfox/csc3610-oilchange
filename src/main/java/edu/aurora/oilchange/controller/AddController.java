@@ -67,7 +67,6 @@ public class AddController {
         hbVehicle.getStyleClass().add("stage");
         currentStage = AddStage.VEHICLE;
 
-        // TODO: Each of these should validate the fields and then move, or just break.
         btnNext.setOnAction(e -> {
             switch(currentStage) {
                 case VEHICLE:
@@ -173,11 +172,11 @@ public class AddController {
                 pane.setCenter(currentPane);
                 break;
             case SUMMARY:
-                loader = new FXMLLoader(getClass().getResource("/edu/aurora/oilchange/AddSummaryView.fxml"));
+                loader = new FXMLLoader(getClass().getResource("/edu/aurora/oilchange/ui/AddSummaryView.fxml"));
                 try {
                     currentPane = loader.load();
                 } catch (IOException ex) {
-                    handleLoadingError("/edu/aurora/oilchange/AddSummaryView.fxml");
+                    handleLoadingError("/edu/aurora/oilchange/ui/AddSummaryView.fxml");
                 }
                 summaryController = loader.getController();
                 summaryController.setVehicleModel(vehicleModel);

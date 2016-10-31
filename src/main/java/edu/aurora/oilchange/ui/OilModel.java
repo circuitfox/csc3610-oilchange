@@ -123,13 +123,11 @@ public class OilModel {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder("Oil:\n");
-        sb.append("\tOil Type: ").append(oilType.get()).append("\n");
-        sb.append("\tOil Brand: ").append(oilBrand.get()).append("\n");
-        sb.append("\tQuantity: ").append(quantity.get()).append("qt\n");
-        sb.append("\tPrice: $").append(pricePerQuart.get()).append("/qt\n");
-        sb.append("\tFilter Brand: ").append(filterBrand.get()).append("\n");
-        sb.append("\tFilter Cost: $").append(filterCost.get()).append("\n");
-        return sb.toString();
+        return "Oil:\n" + "\tOil Type: " + oilType.get() + "\n" +
+                "\tOil Brand: " + oilBrand.get() + "\n" +
+                "\tQuantity: " + quantity.get() + "qt\n" +
+                "\tPrice: $" + pricePerQuart.get() + "/qt\n" +
+                "\tFilter Brand: " + filterBrand.get() + "\n" +
+                "\tFilter Cost: $" + filterCost.get() + "\n";
     }
 }
