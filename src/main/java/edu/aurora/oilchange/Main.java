@@ -9,8 +9,8 @@ import javafx.application.Application;
  * and run the javafx app.
  */
 public class Main {
-	// TODO: Add DB
-	public static void main(String[] args) {
-		Application.launch(AppLauncher.class, args);
-	}
+    // TODO: Add DB
+    public static void main(String[] args) {
+        Application.launch(AppLauncher.class, args);
+    }
 }

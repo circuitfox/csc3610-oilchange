@@ -67,7 +67,6 @@ public class AddController {
         hbVehicle.getStyleClass().add("stage");
         currentStage = AddStage.VEHICLE;
 
-        // TODO: Each of these should validate the fields and then move, or just break.
         btnNext.setOnAction(e -> {
             switch(currentStage) {
                 case VEHICLE:

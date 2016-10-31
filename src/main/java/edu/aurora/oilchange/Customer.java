@@ -1,6 +1,6 @@
 package edu.aurora.oilchange;
 
-public class Customer {;
+public class Customer {
     private int id;
     private Vehicle vehicle;
     private Oil oil;

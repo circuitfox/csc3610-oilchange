@@ -74,10 +74,8 @@ public class VehicleModel {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder("Vehicle:\n");
-        sb.append("\tMake: ").append(make.get()).append("\n");
-        sb.append("\tModel: ").append(model.get()).append("\n");
-        sb.append("\tYear: ").append(year.get()).append("\n");
-        return sb.toString();
+        return "Vehicle:\n" + "\tMake: " + make.get() + "\n" +
+                "\tModel: " + model.get() + "\n" +
+                "\tYear: " + year.get() + "\n";
     }
 }

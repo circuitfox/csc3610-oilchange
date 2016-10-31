@@ -19,23 +19,23 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class MainController {
-	@FXML
-	private Label lblId;
-	@FXML
-	private Label lblStatus;
-	@FXML
-	private TableView<Customer> tblCustomers;
-	@FXML
-	private Button btnAdd;
-	@FXML
-	private Button btnUpdate;
-	@FXML
-	private Button btnRemove;
+    @FXML
+    private Label lblId;
+    @FXML
+    private Label lblStatus;
+    @FXML
+    private TableView<Customer> tblCustomers;
+    @FXML
+    private Button btnAdd;
+    @FXML
+    private Button btnUpdate;
+    @FXML
+    private Button btnRemove;
     @FXML
     private MenuBar menuBar;
 
-	@FXML
-	private void initialize() {
+    @FXML
+    private void initialize() {
         menuBar.getMenus().get(0).getItems().get(0).setOnAction(e -> System.exit(0));
 
         // TODO: Populate TableView with DB results.
