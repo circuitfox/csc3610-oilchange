@@ -20,7 +20,7 @@ create table Oil (
     filterBrand varchar(50) not null,
     filterCost decimal not null,
     primary key(id),
-    foreign key(id) references Vehicle(id)
+    foreign key(id) references Vehicle(id) on delete cascade
 );
 
 create table Date (
@@ -29,5 +29,5 @@ create table Date (
     day int(4) not null,
     year int not null,
     primary key(id),
-    foreign key(id) references Vehicle(id)
+    foreign key(id) references Vehicle(id) on delete cascade
 );
