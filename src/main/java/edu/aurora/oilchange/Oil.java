@@ -224,4 +224,31 @@ public class Oil implements Comparable<Oil> {
         else
             return 0;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Oil oil = (Oil)o;
+
+        if (quantity != oil.quantity) return false;
+        if (oilType != null ? !oilType.equals(oil.oilType) : oil.oilType != null) return false;
+        if (oilBrand != null ? !oilBrand.equals(oil.oilBrand) : oil.oilBrand != null) return false;
+        if (pricePerQuart != null ? !pricePerQuart.equals(oil.pricePerQuart) : oil.pricePerQuart != null) return false;
+        if (filterBrand != null ? !filterBrand.equals(oil.filterBrand) : oil.filterBrand != null) return false;
+        return filterCost != null ? filterCost.equals(oil.filterCost) : oil.filterCost == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = oilType != null ? oilType.hashCode() : 0;
+        result = 31 * result + (oilBrand != null ? oilBrand.hashCode() : 0);
+        result = 31 * result + quantity;
+        result = 31 * result + (pricePerQuart != null ? pricePerQuart.hashCode() : 0);
+        result = 31 * result + (filterBrand != null ? filterBrand.hashCode() : 0);
+        result = 31 * result + (filterCost != null ? filterCost.hashCode() : 0);
+        return result;
+    }
 }

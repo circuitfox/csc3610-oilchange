@@ -56,4 +56,27 @@ public class Customer {
     public String toString() {
         return "Customer [vehicle=" + vehicle + ", oil=" + oil + ", idNum=" + id + "]";
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Customer customer = (Customer)o;
+
+        if (id != customer.id) return false;
+        if (vehicle != null ? !vehicle.equals(customer.vehicle) : customer.vehicle != null) return false;
+        if (oil != null ? !oil.equals(customer.oil) : customer.oil != null) return false;
+        return date != null ? date.equals(customer.date) : customer.date == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + (vehicle != null ? vehicle.hashCode() : 0);
+        result = 31 * result + (oil != null ? oil.hashCode() : 0);
+        result = 31 * result + (date != null ? date.hashCode() : 0);
+        return result;
+    }
 }

@@ -113,4 +113,25 @@ public class Date implements Comparable<Date> {
         else
             return 0;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Date date = (Date)o;
+
+        if (month != date.month) return false;
+        if (day != date.day) return false;
+        return year == date.year;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = month;
+        result = 31 * result + day;
+        result = 31 * result + year;
+        return result;
+    }
 }
