@@ -73,12 +73,6 @@ public enum VehicleMake {
         vehicleMap = Collections.unmodifiableMap(map);
     }
 
-    public static boolean hasModel(VehicleMake make, String model) {
-        String regex = "\\b" + model + "\\b";
-        String modelName = vehicleMap.get(make);
-        return modelName != null && modelName.matches(regex);
-    }
-
     public static VehicleMake fromString(String s) {
         for (VehicleMake v : values()) {
             if (s.equalsIgnoreCase(v.name())) {
