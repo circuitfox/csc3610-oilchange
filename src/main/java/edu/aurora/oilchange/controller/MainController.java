@@ -1,22 +1,20 @@
 package edu.aurora.oilchange.controller;
 
 import edu.aurora.oilchange.*;
+import edu.aurora.oilchange.ui.*;
 
-import edu.aurora.oilchange.ui.DateModel;
-import edu.aurora.oilchange.ui.OilChangeModel;
-import edu.aurora.oilchange.ui.OilModel;
-import edu.aurora.oilchange.ui.VehicleModel;
-import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 
 public class MainController {
     @FXML
@@ -24,7 +22,29 @@ public class MainController {
     @FXML
     private Label lblStatus;
     @FXML
-    private TableView<Customer> tblCustomers;
+    private TableView<CustomerModel> tblCustomers;
+    @FXML
+    private TableColumn<CustomerModel, Integer> tcId;
+    @FXML
+    private TableColumn<CustomerModel, String> tcVehicleMake;
+    @FXML
+    private TableColumn<CustomerModel, String> tcVehicleModel;
+    @FXML
+    private TableColumn<CustomerModel, String> tcVehicleYear;
+    @FXML
+    private TableColumn<CustomerModel, String> tcOilType;
+    @FXML
+    private TableColumn<CustomerModel, String> tcOilBrand;
+    @FXML
+    private TableColumn<CustomerModel, Integer> tcOilQuantity;
+    @FXML
+    private TableColumn<CustomerModel, BigDecimal> tcOilPrice;
+    @FXML
+    private TableColumn<CustomerModel, String> tcFilterBrand;
+    @FXML
+    private TableColumn<CustomerModel, BigDecimal> tcFilterCost;
+    @FXML
+    private TableColumn<CustomerModel, Date> tcDate;
     @FXML
     private Button btnAdd;
     @FXML
@@ -39,9 +59,9 @@ public class MainController {
         menuBar.getMenus().get(0).getItems().get(0).setOnAction(e -> System.exit(0));
 
         // TODO: Populate TableView with DB results.
-        tblCustomers.setRowFactory(tv -> new TableRow<Customer>() {
+        tblCustomers.setRowFactory(tv -> new TableRow<CustomerModel>() {
             @Override
-            protected void updateItem(Customer item, boolean empty) {
+            protected void updateItem(CustomerModel item, boolean empty) {
                 super.updateItem(item, empty);
                 Date today = new Date();
                 if (item == null) {
@@ -56,36 +76,43 @@ public class MainController {
             }
         });
 
-        lblId.textProperty().bind(Bindings.createStringBinding(() -> {
-            Customer customer = tblCustomers.getSelectionModel().getSelectedItem();
-            if (customer == null) {
-                return "";
-            } else {
-                return String.valueOf(customer.getId());
-            }
-        }));
+        tcId.setCellValueFactory(new PropertyValueFactory<>("id"));
 
-        lblStatus.textProperty().bind(Bindings.createStringBinding(() -> {
-            Customer customer = tblCustomers.getSelectionModel().getSelectedItem();
-            if (customer == null) {
+        tcVehicleMake.setCellValueFactory(new PropertyValueFactory<>("make"));
+        tcVehicleModel.setCellValueFactory(new PropertyValueFactory<>("model"));
+        tcVehicleYear.setCellValueFactory(new PropertyValueFactory<>("year"));
+
+        tcOilType.setCellValueFactory(new PropertyValueFactory<>("oilType"));
+        tcOilBrand.setCellValueFactory(new PropertyValueFactory<>("oilBrand"));
+        tcOilQuantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+        tcOilPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
+        tcFilterBrand.setCellValueFactory(new PropertyValueFactory<>("filterBrand"));
+        tcFilterCost.setCellValueFactory(new PropertyValueFactory<>("filterCost"));
+
+        tcDate.setCellValueFactory(new PropertyValueFactory<>("date"));
+
+        tblCustomers.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == null) {
                 lblStatus.getStyleClass().removeAll("overdue", "warn");
-                return "";
+                lblStatus.setText("OKAY");
+                lblId.setText("");
             } else {
                 Date today = new Date();
-                if (customer.getDate().compareTo(today) < 0) {
+                if (newValue.getDate().compareTo(today) < 0) {
                     lblStatus.getStyleClass().remove("warn");
                     lblStatus.getStyleClass().add("overdue");
-                    return "OVERDUE";
-                } else if ((customer.getDate().getMonth() - today.getMonth() < 1)) {
+                    lblStatus.setText("OVERDUE");
+                } else if ((newValue.getDate().getMonth() - today.getMonth() < 1)) {
                     lblStatus.getStyleClass().remove("overdue");
                     lblStatus.getStyleClass().add("warn");
-                    return "NEAR-DUE";
+                    lblStatus.setText("WARN");
                 } else {
                     lblStatus.getStyleClass().removeAll("overdue", "warn");
-                    return "OKAY";
+                    lblStatus.setText("OKAY");
                 }
+                lblId.setText(Integer.toString(newValue.getId()));
             }
-        }));
+        });
 
         btnAdd.setOnAction(e -> {
             Stage addStage = new Stage();
@@ -119,21 +146,17 @@ public class MainController {
             updateStage.initModality(Modality.WINDOW_MODAL);
             updateStage.setTitle("Update Customer Information");
 
-            Customer customer = tblCustomers.getSelectionModel().getSelectedItem();
+            CustomerModel customer = tblCustomers.getSelectionModel().getSelectedItem();
             if (customer == null) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, "No customer selected for update.");
                 alert.show();
                 return;
             }
 
-            VehicleModel vehicleModel = new VehicleModel();
-            DateModel dateModel = new DateModel();
-            OilModel oilModel = new OilModel();
+            VehicleModel vehicleModel = new VehicleModel(customer.getVehicle());
+            DateModel dateModel = new DateModel(customer.getDate());
+            OilModel oilModel = new OilModel(customer.getOil());
             OilChangeModel oilChangeModel = new OilChangeModel();
-
-            vehicleModel.setVehicle(customer.getVehicle());
-            dateModel.setDate(customer.getDate());
-            oilModel.setOil(customer.getOil());
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/edu/aurora/oilchange/ui/UpdateView.fxml"));
             AnchorPane updatePane = new AnchorPane();
