@@ -2,3 +2,4 @@
 # this user should have privileges to change the 'oilchange_db' database on the system.
 db.user = # insert mysql username
 db.pass = # insert mysql password
+db.url = # db url, with jdbc:mysql://

@@ -7,7 +7,7 @@ import edu.aurora.oilchange.Vehicle;
 
 import java.sql.*;
 import java.util.HashSet;
-import java.util.Optional;
+import java.util.Properties;
 import java.util.Set;
 
 public class Database {
@@ -19,6 +19,10 @@ public class Database {
         this.url = url;
         this.username = username;
         this.password = password;
+    }
+
+    public Database(Properties properties) {
+        this(properties.getProperty("db.url"), properties.getProperty("db.user"), properties.getProperty("db.pass"));
     }
 
     public void insert(Vehicle vehicle, Oil oil, Date date) throws SQLException {
@@ -127,7 +131,7 @@ public class Database {
         }
     }
 
-    public Optional<Set<Customer>> selectAll() {
+    public Set<Customer> selectAll() throws SQLException {
         try (Connection connection = DriverManager.getConnection(url, username, password)) {
             connection.setAutoCommit(false);
             try {
@@ -136,27 +140,25 @@ public class Database {
                                 "inner join Oil on Oil.id = Vehicle.id " +
                                 "inner join Date on Date.id = Vehicle.id;");
                 ResultSet rs = selectStatement.executeQuery();
-                Set <Customer> results = new HashSet<>();
+                Set<Customer> results = new HashSet<>();
 
                 while (rs.next()) {
                     Vehicle vehicle = new Vehicle(rs.getString(2), rs.getString(3), rs.getString(4));
                     Oil oil = new Oil(rs.getString(6), rs.getString(7), rs.getInt(8),
-                                      rs.getBigDecimal(9), rs.getString(10), rs.getBigDecimal(11));
+                            rs.getBigDecimal(9), rs.getString(10), rs.getBigDecimal(11));
                     Date date = new Date(rs.getInt(13), rs.getInt(14), rs.getInt(15));
                     Customer customer = new Customer(rs.getInt(1), vehicle, oil, date);
                     results.add(customer);
                 }
 
                 connection.commit();
-                return Optional.of(results);
+                return results;
             } catch (SQLException ex) {
                 connection.rollback();
                 throw ex;
             } finally {
                 connection.setAutoCommit(true);
             }
-        } catch (SQLException ex) {
-            return Optional.empty();
         }
     }
 

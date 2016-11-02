@@ -1,10 +1,13 @@
 package edu.aurora.oilchange.controller;
 
+import edu.aurora.oilchange.db.Database;
+import edu.aurora.oilchange.db.DatabaseValueService;
 import edu.aurora.oilchange.ui.DateModel;
 import edu.aurora.oilchange.ui.OilChangeModel;
 import edu.aurora.oilchange.ui.OilModel;
 import edu.aurora.oilchange.ui.VehicleModel;
 
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
@@ -16,6 +19,7 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.concurrent.ExecutorService;
 
 public class AddController {
 
@@ -44,6 +48,10 @@ public class AddController {
     private OilModel oilModel;
     private OilChangeModel oilChangeModel;
     private DateModel dateModel;
+
+    private Database database;
+    private ExecutorService threadPool;
+    private DatabaseValueService tableUpdateService;
 
     private AddStage currentStage;
     private boolean onOilStage;
@@ -88,7 +96,21 @@ public class AddController {
                     }
                     break;
                 case SUMMARY:
-                    // TODO: DB call here
+                    Task<Void> add = new Task<Void>() {
+                        @Override
+                        protected Void call() throws Exception {
+                            database.insert(vehicleModel.getVehicle(), oilModel.getOil(), dateModel.getDate());
+                            return null;
+                        }
+                    };
+                    add.setOnSucceeded(v -> tableUpdateService.restart());
+                    add.exceptionProperty().addListener((observable, oldValue, newValue) -> {
+                        Alert alert = new Alert(Alert.AlertType.ERROR, "Could not add value to database");
+                        alert.show();
+                        newValue.printStackTrace();
+                    });
+
+                    threadPool.execute(add);
                     closeStage();
                     break;
             }
@@ -115,6 +137,18 @@ public class AddController {
         });
 
         btnCancel.setOnAction(e -> closeStage());
+    }
+
+    public void setDatabase(Database database) {
+        this.database = database;
+    }
+
+    public void setThreadPool(ExecutorService threadPool) {
+        this.threadPool = threadPool;
+    }
+
+    public void setTableUpdateService(DatabaseValueService tableUpdateService) {
+        this.tableUpdateService = tableUpdateService;
     }
 
     private enum AddStage {

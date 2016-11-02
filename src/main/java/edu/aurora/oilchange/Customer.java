@@ -1,6 +1,7 @@
 package edu.aurora.oilchange;
 
 public class Customer {
+    public static int OILCHANGE_DURATION_MONTHS = 3;
     private int id;
     private Vehicle vehicle;
     private Oil oil;
