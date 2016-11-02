@@ -13,15 +13,19 @@ public class VehicleModel {
     private StringProperty year;
 
     public VehicleModel() {
-        vehicle = new Vehicle();
+        this(new Vehicle());
+    }
+
+    public VehicleModel(Vehicle vehicle) {
+        this.vehicle = new Vehicle();
 
         make = new SimpleStringProperty(this, "make", "");
         model = new SimpleStringProperty(this, "model", "");
         year = new SimpleStringProperty(this, "year", "");
 
-        make.addListener((observable, oldValue, newValue) -> vehicle.setMake(newValue));
-        model.addListener((observable, oldValue, newValue) -> vehicle.setModel(newValue));
-        year.addListener((observable, oldValue, newValue) -> vehicle.setYear(newValue));
+        make.addListener((observable, oldValue, newValue) -> this.vehicle.setMake(newValue));
+        model.addListener((observable, oldValue, newValue) -> this.vehicle.setModel(newValue));
+        year.addListener((observable, oldValue, newValue) -> this.vehicle.setYear(newValue));
     }
 
     public String getMake() {

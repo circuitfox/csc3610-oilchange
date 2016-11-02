@@ -13,11 +13,15 @@ public class OilChangeModel {
     private DoubleProperty laborHours;
 
     public OilChangeModel() {
-        this.oilChange = new OilChange();
+        this(new OilChange());
+    }
+
+    public OilChangeModel(OilChange oilChange) {
+        this.oilChange = oilChange;
 
         this.laborHours = new SimpleDoubleProperty(this, "laborHours", 0);
 
-        laborHours.addListener((observable, oldValue, newValue) -> oilChange.setLaborHours(newValue.doubleValue()));
+        laborHours.addListener((observable, oldValue, newValue) -> this.oilChange.setLaborHours(newValue.doubleValue()));
     }
 
     public BigDecimal getTotal() {
