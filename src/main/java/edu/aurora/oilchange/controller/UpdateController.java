@@ -110,7 +110,7 @@ public class UpdateController {
 
         cbKind.valueProperty().addListener((observable, oldValue, newValue) -> {
             String typeName = cbType.getValue() + " " + newValue;
-            oilModel.setOilType(typeName);
+            customerModel.getOil().setOilType(typeName);
         });
 
         bind();
@@ -188,11 +188,6 @@ public class UpdateController {
         btnCancel.setOnAction(e -> ((Stage)btnCancel.getScene().getWindow()).close());
     }
 
-    public void setVehicleModel(VehicleModel vehicleModel) {
-        this.vehicleModel = vehicleModel;
-        bindVehicle();
-    }
-
     public void setCustomerModel(CustomerModel customerModel) {
         this.customerModel = customerModel;
         String type = customerModel.getOil().getOilType().split("\\s\\d")[0];
@@ -200,7 +195,7 @@ public class UpdateController {
                 customerModel.getOil().getOilType().lastIndexOf(' '));
         cbType.setValue(type);
         cbKind.setValue(kind);
-        bindOil();
+        bind();
         bindTotalCost();
     }
 
@@ -222,6 +217,9 @@ public class UpdateController {
     }
 
     private void bind() {
+        cbMake.setValue(customerModel.getMake());
+        cbModel.setValue(customerModel.getModel());
+
         txtMake.textProperty().bindBidirectional(customerModel.makeProperty());
         txtModel.textProperty().bindBidirectional(customerModel.modelProperty());
         txtYear.textProperty().bindBidirectional(customerModel.yearProperty());
