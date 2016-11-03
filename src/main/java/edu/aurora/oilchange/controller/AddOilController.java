@@ -1,16 +1,21 @@
 package edu.aurora.oilchange.controller;
 
+import edu.aurora.oilchange.OilType;
 import edu.aurora.oilchange.ui.OilModel;
 
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.util.converter.BigDecimalStringConverter;
 import javafx.util.converter.NumberStringConverter;
 
-public class AddOilManualController {
+public class AddOilController {
     @FXML
-    private TextField txtOilType;
+    private ComboBox<String> cbType;
+    @FXML
+    private ComboBox<String> cbKind;
     @FXML
     private TextField txtOilBrand;
     @FXML
@@ -30,19 +35,28 @@ public class AddOilManualController {
     @FXML
     private Label lblFilterBrandError;
     @FXML
-    private Label lblTypeError;
-    @FXML
     private Label lblBrandError;
 
     private OilModel oilModel;
 
-    public AddOilManualController() {
+    public AddOilController() {
         oilModel = new OilModel();
     }
 
     @FXML
     private void initialize() {
         // TODO: Use TextFormatter for validation
+        cbType.getItems().setAll(OilType.stringValues());
+        cbType.valueProperty().addListener((observable, oldValue, newValue) -> {
+            OilType value = OilType.fromString(newValue);
+            cbKind.getItems().setAll(OilType.oilMap.get(value).split(", "));
+        });
+
+        cbKind.valueProperty().addListener((observable, oldValue, newValue) -> {
+            String typeName = cbType.getValue() + " " + newValue;
+            oilModel.setOilType(typeName);
+        });
+
         bindOil();
     }
 
@@ -53,11 +67,6 @@ public class AddOilManualController {
 
     public boolean validate() {
         boolean valid = true;
-
-        if (Validations.digits(txtOilType.getText()).any()) {
-            lblTypeError.setVisible(true);
-            valid = false;
-        }
 
         if (Validations.digits(txtOilBrand.getText()).any()) {
             lblBrandError.setVisible(true);
@@ -89,7 +98,6 @@ public class AddOilManualController {
             lblPriceError.setVisible(false);
             lblFilterCostError.setVisible(false);
             lblFilterBrandError.setVisible(false);
-            lblTypeError.setVisible(false);
             lblBrandError.setVisible(false);
         }
         return valid;
@@ -100,7 +108,6 @@ public class AddOilManualController {
         BigDecimalStringConverter bigDecimalStringConverter = new BigDecimalStringConverter();
 
         // We need to have bidirectional bindings to convert String to Number/BigDecimal
-        txtOilType.textProperty().bindBidirectional(oilModel.oilTypeProperty());
         txtOilBrand.textProperty().bindBidirectional(oilModel.oilBrandProperty());
         txtOilQuantity.textProperty().bindBidirectional(oilModel.quantityProperty(), numberStringConverter);
         txtOilPrice.textProperty().bindBidirectional(oilModel.pricePerQuartProperty(), bigDecimalStringConverter);

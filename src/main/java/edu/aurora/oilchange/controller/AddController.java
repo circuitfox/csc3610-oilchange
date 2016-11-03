@@ -46,11 +46,9 @@ public class AddController {
     private DateModel dateModel;
 
     private AddStage currentStage;
-    private boolean onOilStage;
 
     private AddVehicleController vehicleController;
-    private AddOilDefaultController oilDefaultController;
-    private AddOilManualController oilManualController;
+    private AddOilController oilController;
     private AddSummaryController summaryController;
 
     public AddController() {
@@ -79,7 +77,7 @@ public class AddController {
                     break;
                 case OIL:
                     // check against default controller first
-                    if (oilManualController.validate()) {
+                    if (oilController.validate()) {
                         hbOil.getStyleClass().remove("stage");
                         hbSummary.getStyleClass().add("stage");
                         loadStage(AddStage.SUMMARY);
@@ -156,19 +154,14 @@ public class AddController {
                 pane.setCenter(currentPane);
                 break;
             case OIL:
-                // TODO: Recommend oil lookup
-                // If we had a selected option, then go to that screen first.
-                //if (VehicleMake.hasOil(vehicleModel.getMake()) && !onOilStage) {
-                //
-                //} else {
-                loader = new FXMLLoader(getClass().getResource("/edu/aurora/oilchange/ui/AddOilManualView.fxml"));
+                loader = new FXMLLoader(getClass().getResource("/edu/aurora/oilchange/ui/AddOilView.fxml"));
                 try {
                     currentPane = loader.load();
                 } catch (IOException ex) {
-                    handleLoadingError("/edu/aurora/oilchange/ui/AddOilManualView.fxml");
+                    handleLoadingError("/edu/aurora/oilchange/ui/AddOilView.fxml");
                 }
-                oilManualController = loader.getController();
-                oilManualController.setOilModel(oilModel);
+                oilController = loader.getController();
+                oilController.setOilModel(oilModel);
                 pane.setCenter(currentPane);
                 break;
             case SUMMARY:

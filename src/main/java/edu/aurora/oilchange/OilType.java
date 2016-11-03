@@ -1,9 +1,7 @@
 package edu.aurora.oilchange;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public enum OilType {
     SYNTHETIC,
@@ -24,12 +22,24 @@ public enum OilType {
         oilMap = Collections.unmodifiableMap(map);
     }
 
+    public static OilType fromString(String s) {
+        String type = s.replace(" ", "_");
+        for (OilType o : values()) {
+            if (type.equalsIgnoreCase(o.name())) {
+                return o;
+            }
+        }
+        throw new IllegalArgumentException("Value " + s + "not an oil type");
+    }
+
     public static String[] stringValues() {
         return Arrays.stream(values()).map(OilType::toString).toArray(String[]::new);
     }
 
     @Override
     public String toString() {
-        return Character.toTitleCase(name().charAt(0)) + name().substring(1).toLowerCase();
+        return Arrays.stream(name().split("_"))
+                .map(s -> Character.toTitleCase(s.charAt(0)) + s.substring(1).toLowerCase())
+                .collect(Collectors.joining(" "));
     }
 }

@@ -19,23 +19,22 @@
 		<Label layoutX="25.0" layoutY="75.0" text="Make:" />
 		<Label layoutX="208.0" layoutY="75.0" text="Model:" />
 		<Label layoutX="401.0" layoutY="75.0" text="Year:" />
-		<TextField fx:id="txtMake" layoutX="74.0" layoutY="116.0" prefHeight="31.0" prefWidth="108.0" visible="false"/>
-		<TextField fx:id="txtModel" layoutX="266.0" layoutY="116.0" prefHeight="31.0" prefWidth="108.0" visible="false"/>
-		<TextField fx:id="txtYear" layoutX="451.0" layoutY="70.0" prefHeight="31.0" prefWidth="61.0" visible="false"/>
+		<TextField fx:id="txtMake" layoutX="74.0" layoutY="116.0" prefHeight="31.0" prefWidth="108.0" visible="false" />
+		<TextField fx:id="txtModel" layoutX="266.0" layoutY="116.0" prefHeight="31.0" prefWidth="108.0" visible="false" />
+		<TextField fx:id="txtYear" layoutX="451.0" layoutY="70.0" prefHeight="31.0" prefWidth="61.0" visible="false" />
 		<Label layoutX="23.0" layoutY="212.0" text="Type:" />
-		<Label layoutX="206.0" layoutY="212.0" text="Brand:" />
-		<Label layoutX="385.0" layoutY="212.0" text="Quantity:" />
-		<TextField fx:id="txtOilType" layoutX="73.0" layoutY="207.0" prefHeight="31.0" prefWidth="82.0" />
-		<TextField fx:id="txtOilBrand" layoutX="266.0" layoutY="207.0" prefHeight="31.0" prefWidth="91.0" />
-		<TextField fx:id="txtOilQuantity" layoutX="449.0" layoutY="207.0" prefHeight="31.0" prefWidth="61.0" />
+		<Label layoutX="373.0" layoutY="214.0" text="Brand:" />
+		<Label layoutX="552.0" layoutY="214.0" text="Quantity:" />
+		<TextField fx:id="txtOilBrand" layoutX="433.0" layoutY="209.0" prefHeight="31.0" prefWidth="91.0" />
+		<TextField fx:id="txtOilQuantity" layoutX="616.0" layoutY="209.0" prefHeight="31.0" prefWidth="61.0" />
 		<Label layoutX="258.0" layoutY="14.0" text="Update Vehicle Info:" />
-		<Label layoutX="224.0" layoutY="174.0" text="Update Oil Info:" />
+		<Label layoutX="272.0" layoutY="174.0" text="Update Oil Info:" />
 		<Label layoutX="23.0" layoutY="257.0" text="Price: $" />
-		<Label layoutX="181.0" layoutY="257.0" text="Filter Brand:" />
-		<Label layoutX="364.0" layoutY="257.0" text="Filter Cost: $" />
+		<Label layoutX="348.0" layoutY="259.0" text="Filter Brand:" />
+		<Label layoutX="531.0" layoutY="259.0" text="Filter Cost: $" />
 		<TextField fx:id="txtOilPrice" layoutX="73.0" layoutY="252.0" prefHeight="31.0" prefWidth="61.0" />
-		<TextField fx:id="txtFilterBrand" layoutX="266.0" layoutY="252.0" prefHeight="31.0" prefWidth="91.0" />
-		<TextField fx:id="txtFilterCost" layoutX="449.0" layoutY="252.0" prefHeight="31.0" prefWidth="61.0" />
+		<TextField fx:id="txtFilterBrand" layoutX="433.0" layoutY="254.0" prefHeight="31.0" prefWidth="91.0" />
+		<TextField fx:id="txtFilterCost" layoutX="616.0" layoutY="254.0" prefHeight="31.0" prefWidth="61.0" />
 		<Label layoutX="135.0" layoutY="257.0" text="/qt" />
 		<Label layoutX="24.0" layoutY="337.0" text="Date:" />
 		<DatePicker fx:id="dtDate" layoutX="72.0" layoutY="332.0" />
@@ -46,5 +45,7 @@
       <Label fx:id="lblPriceError" layoutX="266.0" layoutY="354.0" styleClass="validation-error" text="Enter a decimal number (1.99) for " visible="false" />
       <ComboBox fx:id="cbMake" layoutX="74.0" layoutY="73.0" prefHeight="25.0" prefWidth="108.0" />
       <ComboBox fx:id="cbModel" layoutX="266.0" layoutY="73.0" prefHeight="25.0" prefWidth="108.0" />
+      <ComboBox fx:id="cbType" layoutX="69.0" layoutY="209.0" prefWidth="150.0" />
+      <ComboBox fx:id="cbKind" layoutX="229.0" layoutY="207.0" prefHeight="28.0" prefWidth="124.0" />
 	</children>
 </AnchorPane>

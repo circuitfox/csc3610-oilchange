@@ -1,5 +1,6 @@
 package edu.aurora.oilchange.controller;
 
+import edu.aurora.oilchange.OilType;
 import edu.aurora.oilchange.VehicleMake;
 import edu.aurora.oilchange.ui.DateModel;
 import edu.aurora.oilchange.ui.OilChangeModel;
@@ -33,7 +34,9 @@ public class UpdateController {
     @FXML
     private TextField txtYear;
     @FXML
-    private TextField txtOilType;
+    private ComboBox<String> cbType;
+    @FXML
+    private ComboBox<String> cbKind;
     @FXML
     private TextField txtOilBrand;
     @FXML
@@ -95,6 +98,17 @@ public class UpdateController {
                 .equal(cbMake.valueProperty(), "Other")
                 .or(Bindings.equal(cbModel.valueProperty(), "Other")));
 
+        cbType.getItems().setAll(OilType.stringValues());
+        cbType.valueProperty().addListener((observable, oldValue, newValue) -> {
+            OilType value = OilType.fromString(newValue);
+            cbKind.getItems().setAll(OilType.oilMap.get(value).split(", "));
+        });
+
+        cbKind.valueProperty().addListener((observable, oldValue, newValue) -> {
+            String typeName = cbType.getValue() + " " + newValue;
+            oilModel.setOilType(typeName);
+        });
+
         bindVehicle();
         bindDate();
         bindOil();
@@ -111,18 +125,8 @@ public class UpdateController {
                 digitsValid = false;
             }
 
-            if (Validations.digits(txtOilType.getText()).any()) {
-                lblLetterError.setText(lblLetterError.getText() + "the oil type");
-                lblLetterError.setVisible(true);
-                lettersValid = false;
-            }
-
             if (Validations.digits(txtOilBrand.getText()).any()) {
-                if (!lettersValid) {
-                    lblLetterError.setText(lblLetterError.getText() + " and the oil brand");
-                } else {
-                    lblLetterError.setText(lblLetterError.getText() + "the oil brand");
-                }
+                lblLetterError.setText(lblLetterError.getText() + "the oil brand");
                 lblLetterError.setVisible(true);
                 lettersValid = false;
             }
@@ -176,6 +180,10 @@ public class UpdateController {
 
     public void setOilModel(OilModel oilModel) {
         this.oilModel = oilModel;
+        String type = oilModel.getOilType().split("\\s\\d")[0];
+        String kind = oilModel.getOilType().substring(oilModel.getOilType().lastIndexOf(' '));
+        cbType.setValue(type);
+        cbKind.setValue(kind);
         bindOil();
         bindTotalCost();
     }
@@ -208,7 +216,6 @@ public class UpdateController {
         NumberStringConverter numberStringConverter = new NumberStringConverter();
         BigDecimalStringConverter bigDecimalStringConverter = new BigDecimalStringConverter();
 
-        txtOilType.textProperty().bindBidirectional(oilModel.oilTypeProperty());
         txtOilBrand.textProperty().bindBidirectional(oilModel.oilBrandProperty());
         txtOilQuantity.textProperty().bindBidirectional(oilModel.quantityProperty(), numberStringConverter);
         txtOilPrice.textProperty().bindBidirectional(oilModel.pricePerQuartProperty(), bigDecimalStringConverter);
