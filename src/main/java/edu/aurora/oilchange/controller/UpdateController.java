@@ -2,12 +2,12 @@ package edu.aurora.oilchange.controller;
 
 import edu.aurora.oilchange.OilType;
 import edu.aurora.oilchange.VehicleMake;
-import edu.aurora.oilchange.ui.DateModel;
-import edu.aurora.oilchange.ui.OilChangeModel;
-import edu.aurora.oilchange.ui.OilModel;
-import edu.aurora.oilchange.ui.VehicleModel;
+import edu.aurora.oilchange.db.Database;
+import edu.aurora.oilchange.db.DatabaseValueService;
+import edu.aurora.oilchange.ui.*;
 
 import javafx.beans.binding.Bindings;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
@@ -17,6 +17,7 @@ import javafx.util.converter.NumberStringConverter;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
+import java.util.concurrent.ExecutorService;
 
 public class UpdateController {
     @FXML
@@ -58,22 +59,25 @@ public class UpdateController {
     @FXML
     private Label lblPriceError;
 
-    private VehicleModel vehicleModel;
-    private OilModel oilModel;
+    private Database database;
+    private ExecutorService threadPool;
+    private DatabaseValueService tableUpdateService;
+
+    private CustomerModel customerModel;
     private OilChangeModel oilChangeModel;
-    private DateModel dateModel;
 
     public UpdateController() {
-        vehicleModel = new VehicleModel();
-        oilModel = new OilModel();
+        customerModel = new CustomerModel();
         oilChangeModel = new OilChangeModel();
-        dateModel = new DateModel();
     }
 
     @FXML
     private void initialize() {
         // TODO: TextFormatter validation
-        dtDate.setValue(LocalDate.of(dateModel.getYear(), dateModel.getMonth(), dateModel.getDay()));
+        dtDate.setValue(LocalDate.of(
+                customerModel.getDate().getYear(),
+                customerModel.getDate().getMonth(),
+                customerModel.getDate().getDay()));
         cbMake.getItems().setAll(VehicleMake.stringValues());
         cbMake.valueProperty().addListener((observable, oldValue, newValue) -> {
             VehicleMake value = VehicleMake.fromString(newValue);
@@ -83,13 +87,13 @@ public class UpdateController {
                 cbModel.setDisable(false);
                 cbModel.getItems().setAll(VehicleMake.vehicleMap.get(value).split(", "));
                 cbModel.getItems().add("Other");
-                vehicleModel.setMake(newValue);
+                customerModel.getVehicle().setMake(newValue);
             }
         });
 
         cbModel.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.equalsIgnoreCase("Other")) {
-                vehicleModel.setModel(newValue);
+                customerModel.getVehicle().setModel(newValue);
             }
         });
 
@@ -109,10 +113,7 @@ public class UpdateController {
             oilModel.setOilType(typeName);
         });
 
-        bindVehicle();
-        bindDate();
-        bindOil();
-        bindTotalCost();
+        bind();
 
         btnOk.setOnAction(e -> {
             boolean digitsValid = true;
@@ -166,7 +167,21 @@ public class UpdateController {
             }
 
             if (digitsValid && lettersValid && costValid) {
-                // FIXME: Send DB command
+                Task<Void> update = new Task<Void>() {
+                    @Override
+                    protected Void call() throws Exception {
+                        database.update(customerModel.getCustomer());
+                        return null;
+                    }
+                };
+                update.setOnSucceeded(v -> tableUpdateService.restart());
+                update.exceptionProperty().addListener((observable, oldValue, newValue) -> {
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "Could not add value to database");
+                    alert.show();
+                    newValue.printStackTrace();
+                });
+
+                threadPool.execute(update);
             }
         });
 
@@ -178,10 +193,11 @@ public class UpdateController {
         bindVehicle();
     }
 
-    public void setOilModel(OilModel oilModel) {
-        this.oilModel = oilModel;
-        String type = oilModel.getOilType().split("\\s\\d")[0];
-        String kind = oilModel.getOilType().substring(oilModel.getOilType().lastIndexOf(' '));
+    public void setCustomerModel(CustomerModel customerModel) {
+        this.customerModel = customerModel;
+        String type = customerModel.getOil().getOilType().split("\\s\\d")[0];
+        String kind = customerModel.getOil().getOilType().substring(
+                customerModel.getOil().getOilType().lastIndexOf(' '));
         cbType.setValue(type);
         cbKind.setValue(kind);
         bindOil();
@@ -193,44 +209,47 @@ public class UpdateController {
         bindTotalCost();
     }
 
-    public void setDateModel(DateModel dateModel) {
-        this.dateModel = dateModel;
-        bindDate();
+    public void setDatabase(Database database) {
+        this.database = database;
     }
 
-    private void bindVehicle() {
-        txtMake.textProperty().bindBidirectional(vehicleModel.makeProperty());
-        txtModel.textProperty().bindBidirectional(vehicleModel.modelProperty());
-        txtYear.textProperty().bindBidirectional(vehicleModel.yearProperty());
+    public void setThreadPool(ExecutorService threadPool) {
+        this.threadPool = threadPool;
     }
 
-    private void bindDate() {
+    public void setTableUpdateService(DatabaseValueService tableUpdateService) {
+        this.tableUpdateService = tableUpdateService;
+    }
+
+    private void bind() {
+        txtMake.textProperty().bindBidirectional(customerModel.makeProperty());
+        txtModel.textProperty().bindBidirectional(customerModel.modelProperty());
+        txtYear.textProperty().bindBidirectional(customerModel.yearProperty());
+
         dtDate.valueProperty().addListener((observable, oldValue, newValue) -> {
-            dateModel.setMonth(newValue.getMonthValue());
-            dateModel.setDay(newValue.getDayOfMonth());
-            dateModel.setYear(newValue.getYear());
+            customerModel.getDate().setMonth(newValue.getMonthValue());
+            customerModel.getDate().setDay(newValue.getDayOfMonth());
+            customerModel.getDate().setYear(newValue.getYear());
         });
-    }
 
-    private void bindOil() {
         NumberStringConverter numberStringConverter = new NumberStringConverter();
         BigDecimalStringConverter bigDecimalStringConverter = new BigDecimalStringConverter();
 
-        txtOilBrand.textProperty().bindBidirectional(oilModel.oilBrandProperty());
-        txtOilQuantity.textProperty().bindBidirectional(oilModel.quantityProperty(), numberStringConverter);
-        txtOilPrice.textProperty().bindBidirectional(oilModel.pricePerQuartProperty(), bigDecimalStringConverter);
-        txtFilterBrand.textProperty().bindBidirectional(oilModel.filterBrandProperty());
-        txtFilterCost.textProperty().bindBidirectional(oilModel.filterCostProperty(), bigDecimalStringConverter);
+        txtOilBrand.textProperty().bindBidirectional(customerModel.oilBrandProperty());
+        txtOilQuantity.textProperty().bindBidirectional(customerModel.quantityProperty(), numberStringConverter);
+        txtOilPrice.textProperty().bindBidirectional(customerModel.priceProperty(), bigDecimalStringConverter);
+        txtFilterBrand.textProperty().bindBidirectional(customerModel.filterBrandProperty());
+        txtFilterCost.textProperty().bindBidirectional(customerModel.filterCostProperty(), bigDecimalStringConverter);
     }
 
     private void bindTotalCost() {
         DecimalFormat currencyFormat = new DecimalFormat("#0.00");
         lblCost.textProperty().bind(Bindings.createStringBinding(() -> {
-                    BigDecimal total = oilModel.getPricePerQuart()
-                            .multiply(BigDecimal.valueOf(oilModel.getQuantity()))
-                            .add(oilModel.getFilterCost()).add(oilChangeModel.getTotal());
+                    BigDecimal total = customerModel.getPrice()
+                            .multiply(BigDecimal.valueOf(customerModel.getQuantity()))
+                            .add(customerModel.getFilterCost()).add(oilChangeModel.getTotal());
                     return "$" + currencyFormat.format(total);
-                }, oilModel.quantityProperty(), oilModel.pricePerQuartProperty(),
-                oilModel.filterCostProperty(), oilChangeModel.laborHoursProperty()));
+                }, customerModel.quantityProperty(), customerModel.priceProperty(),
+                customerModel.filterCostProperty(), oilChangeModel.laborHoursProperty()));
     }
 }

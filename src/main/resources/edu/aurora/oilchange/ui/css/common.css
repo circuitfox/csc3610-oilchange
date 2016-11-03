@@ -10,6 +10,10 @@
     -fx-background-color: #ff8e8e;
 }
 
+.table-row-cell:selected {
+    -fx-background-color: darkgrey;
+}
+
 .validation-error {
     -fx-text-fill: #7a2424;
 }

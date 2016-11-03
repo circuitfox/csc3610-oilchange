@@ -17,7 +17,11 @@ public class OilModel {
     private ObjectProperty<BigDecimal> filterCost;
 
     public OilModel() {
-        this.oil = new Oil();
+        this(new Oil());
+    }
+
+    public OilModel(Oil oil) {
+        this.oil = oil;
 
         this.oilType = new SimpleStringProperty(this, "oilType", "");
         this.oilBrand = new SimpleStringProperty(this, "oilBrand", "");
@@ -26,12 +30,12 @@ public class OilModel {
         this.filterBrand = new SimpleStringProperty(this, "filterBrand", "");
         this.filterCost = new SimpleObjectProperty<>(this, "filterCost", BigDecimal.ZERO);
 
-        oilType.addListener((observable, oldValue, newValue) -> oil.setOilType(newValue));
-        oilBrand.addListener((observable, oldValue, newValue) -> oil.setOilBrand(newValue));
-        quantity.addListener((observable, oldValue, newValue) -> oil.setQuantity(newValue.intValue()));
-        pricePerQuart.addListener((observable, oldValue, newValue) -> oil.setPricePerQuart(newValue));
-        filterBrand.addListener((observable, oldValue, newValue) -> oil.setFilterBrand(newValue));
-        filterCost.addListener((observable, oldValue, newValue) -> oil.setFilterCost(newValue));
+        this.oilType.addListener((observable, oldValue, newValue) -> this.oil.setOilType(newValue));
+        this.oilBrand.addListener((observable, oldValue, newValue) -> this.oil.setOilBrand(newValue));
+        quantity.addListener((observable, oldValue, newValue) -> this.oil.setQuantity(newValue.intValue()));
+        pricePerQuart.addListener((observable, oldValue, newValue) -> this.oil.setPricePerQuart(newValue));
+        filterBrand.addListener((observable, oldValue, newValue) -> this.oil.setFilterBrand(newValue));
+        filterCost.addListener((observable, oldValue, newValue) -> this.oil.setFilterCost(newValue));
     }
 
     public String getOilType() {

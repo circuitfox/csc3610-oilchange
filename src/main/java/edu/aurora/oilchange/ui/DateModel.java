@@ -14,7 +14,11 @@ public class DateModel {
     private IntegerProperty year;
 
     public DateModel() {
-        date = new Date();
+        this(new Date());
+    }
+
+    public DateModel(Date date) {
+        this.date = date;
 
         month = new SimpleIntegerProperty(this, "month", date.getMonth());
         day = new SimpleIntegerProperty(this, "day", date.getDay());
@@ -25,18 +29,18 @@ public class DateModel {
             if (value < 0 || value > Date.MAX_MONTH) {
                 throw new InvalidDateException("Month must be between 1 and 12.");
             }
-            date.setMonth(value);
+            this.date.setMonth(value);
         });
 
         day.addListener((observable, oldValue, newValue) -> {
             int value = newValue.intValue();
-            if (!validDay(value, date.getMonth(), date.getYear())) {
-                throw new InvalidDateException("Day " + value + " invalid for month " + date.getMonth());
+            if (!validDay(value, this.date.getMonth(), this.date.getYear())) {
+                throw new InvalidDateException("Day " + value + " invalid for month " + this.date.getMonth());
             }
-            date.setDay(value);
+            this.date.setDay(value);
         });
 
-        year.addListener((observable, oldValue, newValue) -> date.setYear(newValue.intValue()));
+        year.addListener((observable, oldValue, newValue) -> this.date.setYear(newValue.intValue()));
     }
 
     private boolean validDay(int day, int month, int year) {

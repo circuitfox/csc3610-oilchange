@@ -62,4 +62,25 @@ public class Vehicle implements Comparable<Vehicle> {
         else
             return 0;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Vehicle vehicle = (Vehicle)o;
+
+        if (make != null ? !make.equals(vehicle.make) : vehicle.make != null) return false;
+        if (model != null ? !model.equals(vehicle.model) : vehicle.model != null) return false;
+        return year != null ? year.equals(vehicle.year) : vehicle.year == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = make != null ? make.hashCode() : 0;
+        result = 31 * result + (model != null ? model.hashCode() : 0);
+        result = 31 * result + (year != null ? year.hashCode() : 0);
+        return result;
+    }
 }

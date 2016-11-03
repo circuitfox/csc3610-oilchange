@@ -66,25 +66,25 @@
    <center>
       <TableView fx:id="tblCustomers" editable="true" BorderPane.alignment="CENTER">
         <columns>
-            <TableColumn prefWidth="75.0" text="ID" />
+            <TableColumn prefWidth="75.0" text="ID" fx:id="tcId"/>
           <TableColumn maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="328.0" text="Vehicle">
                <columns>
-                  <TableColumn prefWidth="75.0" text="Make" />
-                  <TableColumn prefWidth="89.0" text="Model" />
-                  <TableColumn prefWidth="73.0" text="Year" />
+                  <TableColumn prefWidth="75.0" text="Make" fx:id="tcVehicleMake" />
+                  <TableColumn prefWidth="89.0" text="Model" fx:id="tcVehicleModel"/>
+                  <TableColumn prefWidth="73.0" text="Year" fx:id="tcVehicleYear"/>
                </columns>
             </TableColumn>
           <TableColumn maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="570.0" text="Oil">
                <columns>
-                  <TableColumn prefWidth="62.0" text="Type" />
-                  <TableColumn prefWidth="53.0" text="Brand" />
-                  <TableColumn prefWidth="107.0" text="Quantity (qt)" />
-                  <TableColumn prefWidth="92.0" text="Price ($/qt)" />
-                  <TableColumn prefWidth="99.0" text="Filter Brand" />
-                  <TableColumn prefWidth="37.0" text="Filter Cost" />
+                  <TableColumn prefWidth="62.0" text="Type" fx:id="tcOilType"/>
+                  <TableColumn prefWidth="53.0" text="Brand" fx:id="tcOilBrand"/>
+                  <TableColumn prefWidth="107.0" text="Quantity (qt)" fx:id="tcOilQuantity"/>
+                  <TableColumn prefWidth="92.0" text="Price ($/qt)" fx:id="tcOilPrice"/>
+                  <TableColumn prefWidth="99.0" text="Filter Brand" fx:id="tcFilterBrand"/>
+                  <TableColumn prefWidth="37.0" text="Filter Cost" fx:id="tcFilterCost"/>
                </columns>
             </TableColumn>
-            <TableColumn minWidth="0.0" prefWidth="265.0" text="Date" />
+            <TableColumn minWidth="0.0" prefWidth="265.0" text="Date" fx:id="tcDate"/>
         </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
