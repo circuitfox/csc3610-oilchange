@@ -182,6 +182,7 @@ public class UpdateController {
                 });
 
                 threadPool.execute(update);
+                ((Stage)btnCancel.getScene().getWindow()).close();
             }
         });
 
