@@ -7,6 +7,7 @@ import edu.aurora.oilchange.db.DatabaseValueService;
 import edu.aurora.oilchange.ui.CustomerModel;
 import edu.aurora.oilchange.ui.OilChangeModel;
 
+import edu.aurora.oilchange.ui.UiUtils;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.concurrent.Task;
@@ -147,7 +148,7 @@ public class MainController {
             addStage.initModality(Modality.WINDOW_MODAL);
             addStage.setTitle("Add Customer");
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/edu/aurora/oilchange/ui/AddView.fxml"));
+            FXMLLoader loader = UiUtils.getView("AddView.fxml");
             BorderPane addPane = new BorderPane();
             try {
                 addPane = loader.load();
@@ -162,10 +163,7 @@ public class MainController {
                 return;
             }
 
-            Scene addScene = new Scene(addPane);
-            // TODO: Move stylesheets & scaling to a separate class
-            addScene.getStylesheets().add(getClass().getResource(
-                    "/edu/aurora/oilchange/ui/css/common.css").toExternalForm());
+            Scene addScene = UiUtils.getScene(addPane);
             addStage.setScene(addScene);
             addStage.show();
         });
@@ -185,7 +183,7 @@ public class MainController {
 
             OilChangeModel oilChangeModel = new OilChangeModel();
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/edu/aurora/oilchange/ui/UpdateView.fxml"));
+            FXMLLoader loader = UiUtils.getView("UpdateView.fxml");
             AnchorPane updatePane = new AnchorPane();
             try {
                 updatePane = loader.load();
@@ -203,9 +201,7 @@ public class MainController {
                 return;
             }
 
-            Scene updateScene = new Scene(updatePane);
-            updateScene.getStylesheets().add(
-                    getClass().getResource("/edu/aurora/oilchange/ui/css/common.css").toExternalForm());
+            Scene updateScene = UiUtils.getScene(updatePane);
             updateStage.setScene(updateScene);
             updateStage.show();
         });

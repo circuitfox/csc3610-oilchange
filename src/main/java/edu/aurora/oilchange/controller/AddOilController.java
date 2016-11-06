@@ -3,7 +3,6 @@ package edu.aurora.oilchange.controller;
 import edu.aurora.oilchange.OilType;
 import edu.aurora.oilchange.ui.OilModel;
 
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;

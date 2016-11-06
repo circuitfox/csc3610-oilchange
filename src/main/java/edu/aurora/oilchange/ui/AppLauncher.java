@@ -20,7 +20,7 @@ public class AppLauncher extends Application {
     public void start(Stage primaryStage) {
         Properties dbProperties = new Properties();
         BorderPane root = new BorderPane();
-        FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("MainView.fxml"));
+        FXMLLoader mainLoader = UiUtils.getView("MainView.fxml");
 
         try {
             dbProperties.load(getClass().getResourceAsStream("/edu/aurora/oilchange/db.properties"));
