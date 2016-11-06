@@ -46,16 +46,8 @@ public class AppLauncher extends Application {
         mainController.setThreadPool(threadPool);
         mainController.runTableUpdateService();
 
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add(getClass().getResource("css/common.css").toExternalForm());
-        scale(scene);
+        Scene scene = UiUtils.getScene(root);
         primaryStage.setScene(scene);
         primaryStage.show();
-    }
-
-    // scale to 2x for displays >= SCALE_2X_HORIZONTAL and SCALE_2X_VERTICAL
-    private void scale(Scene scene) {
-        String scaleStylesheet = DisplayScaler.prefix(".css");
-        scene.getStylesheets().add(getClass().getResource("css/" + scaleStylesheet).toExternalForm());
     }
 }
