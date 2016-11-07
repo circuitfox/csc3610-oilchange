@@ -17,7 +17,7 @@ public class VehicleModel {
     }
 
     public VehicleModel(Vehicle vehicle) {
-        this.vehicle = new Vehicle();
+        this.vehicle = vehicle;
 
         make = new SimpleStringProperty(this, "make", "");
         model = new SimpleStringProperty(this, "model", "");

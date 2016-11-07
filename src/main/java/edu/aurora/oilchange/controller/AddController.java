@@ -2,10 +2,7 @@ package edu.aurora.oilchange.controller;
 
 import edu.aurora.oilchange.db.Database;
 import edu.aurora.oilchange.db.DatabaseValueService;
-import edu.aurora.oilchange.ui.DateModel;
-import edu.aurora.oilchange.ui.OilChangeModel;
-import edu.aurora.oilchange.ui.OilModel;
-import edu.aurora.oilchange.ui.VehicleModel;
+import edu.aurora.oilchange.ui.*;
 
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
@@ -175,12 +172,12 @@ public class AddController {
         AnchorPane currentPane = new AnchorPane();
         switch (stage) {
             case VEHICLE:
-                loader = new FXMLLoader(getClass().getResource("/edu/aurora/oilchange/ui/AddVehicleView.fxml"));
+                loader = UiUtils.getView("AddVehicleView.fxml");
                 try {
                     currentPane = loader.load();
                 } catch (IOException ex) {
                     // this should ideally never happen
-                    handleLoadingError("/edu/aurora/oilchange/ui/AddVehicleView.fxml");
+                    handleLoadingError("AddVehicleView.fxml");
                 }
                 vehicleController = loader.getController();
                 vehicleController.setVehicleModel(vehicleModel);
@@ -188,22 +185,22 @@ public class AddController {
                 pane.setCenter(currentPane);
                 break;
             case OIL:
-                loader = new FXMLLoader(getClass().getResource("/edu/aurora/oilchange/ui/AddOilView.fxml"));
+                loader = UiUtils.getView("AddOilView.fxml");
                 try {
                     currentPane = loader.load();
                 } catch (IOException ex) {
-                    handleLoadingError("/edu/aurora/oilchange/ui/AddOilView.fxml");
+                    handleLoadingError("AddOilView.fxml");
                 }
                 oilController = loader.getController();
                 oilController.setOilModel(oilModel);
                 pane.setCenter(currentPane);
                 break;
             case SUMMARY:
-                loader = new FXMLLoader(getClass().getResource("/edu/aurora/oilchange/ui/AddSummaryView.fxml"));
+                loader = UiUtils.getView("AddSummaryView.fxml");
                 try {
                     currentPane = loader.load();
                 } catch (IOException ex) {
-                    handleLoadingError("/edu/aurora/oilchange/ui/AddSummaryView.fxml");
+                    handleLoadingError("AddSummaryView.fxml");
                 }
                 summaryController = loader.getController();
                 summaryController.setVehicleModel(vehicleModel);
