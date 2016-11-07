@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.aurora.oilchange.controller.AddSummaryController">
+	<children>
+		<VBox layoutX="14.0" layoutY="14.0" prefHeight="595.0" prefWidth="260.0" spacing="10.0">
+			<children>
+				<Label text="Make:" />
+				<Label text="Model:" />
+				<Label text="Year:" />
+				<Label text="Date of change:" />
+				<Label text="Oil Type:" />
+				<Label text="Oil Brand:" />
+				<Label text="Amount" />
+				<Label text="Price of Oil:" />
+				<Label text="Filter Brand:" />
+				<Label text="Filter Cost:" />
+				<Label text="Total Cost:" />
+			</children>
+		</VBox>
+		<VBox layoutX="274.0" layoutY="28.0" prefHeight="595.0" prefWidth="304.0" spacing="10.0">
+			<children>
+				<Label fx:id="lblMake" />
+				<Label fx:id="lblModel" />
+				<Label fx:id="lblYear" />
+				<Label fx:id="lblDate" />
+				<Label fx:id="lblOilType" />
+				<Label fx:id="lblOilBrand" />
+				<Label fx:id="lblOilAmount" />
+				<Label fx:id="lblOilCost" />
+				<Label fx:id="lblFilterBrand" />
+				<Label fx:id="lblFilterCost" />
+				<Label fx:id="lblTotalCost" />
+			</children>
+		</VBox>
+	</children>
+</AnchorPane>
