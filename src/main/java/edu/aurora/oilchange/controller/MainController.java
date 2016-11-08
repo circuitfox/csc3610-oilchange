@@ -88,6 +88,9 @@ public class MainController {
                         getStyleClass().add("overdue");
                     } else if (monthDiff < 1) {
                         getStyleClass().add("warn");
+                    } else {
+                        getStyleClass().remove("overdue");
+                        getStyleClass().remove("warn");
                     }
                 }
             }
