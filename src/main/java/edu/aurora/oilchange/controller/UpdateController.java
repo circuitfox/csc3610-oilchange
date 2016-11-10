@@ -193,7 +193,7 @@ public class UpdateController {
         this.customerModel = customerModel;
         String type = customerModel.getOil().getOilType().split("\\s\\d")[0];
         String kind = customerModel.getOil().getOilType().substring(
-                customerModel.getOil().getOilType().lastIndexOf(' ') - 1);
+                customerModel.getOil().getOilType().lastIndexOf(' ') + 1);
         cbType.setValue(type);
         cbKind.setValue(kind);
         bind();

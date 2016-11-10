@@ -29,7 +29,7 @@ public enum OilType {
                 return o;
             }
         }
-        throw new IllegalArgumentException("Value " + s + "not an oil type");
+        throw new IllegalArgumentException("Value " + s + " not an oil type");
     }
 
     public static String[] stringValues() {
