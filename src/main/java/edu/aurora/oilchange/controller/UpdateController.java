@@ -78,6 +78,7 @@ public class UpdateController {
                 customerModel.getDate().getYear(),
                 customerModel.getDate().getMonth(),
                 customerModel.getDate().getDay()));
+
         cbMake.getItems().setAll(VehicleMake.stringValues());
         cbMake.valueProperty().addListener((observable, oldValue, newValue) -> {
             VehicleMake value = VehicleMake.fromString(newValue);
@@ -224,6 +225,12 @@ public class UpdateController {
         txtMake.textProperty().bindBidirectional(customerModel.makeProperty());
         txtModel.textProperty().bindBidirectional(customerModel.modelProperty());
         txtYear.textProperty().bindBidirectional(customerModel.yearProperty());
+
+        // remember to actually set the date here.
+        dtDate.setValue(LocalDate.of(
+                customerModel.getDate().getYear(),
+                customerModel.getDate().getMonth(),
+                customerModel.getDate().getDay()));
 
         dtDate.valueProperty().addListener((observable, oldValue, newValue) -> {
             customerModel.getDate().setMonth(newValue.getMonthValue());
