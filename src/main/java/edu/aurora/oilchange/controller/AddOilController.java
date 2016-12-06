@@ -61,6 +61,11 @@ public class AddOilController {
 
     public void setOilModel(OilModel model) {
         this.oilModel = model;
+        String type = oilModel.getOilType().split("\\s\\d")[0];
+        String kind = oilModel.getOilType().substring(
+                oilModel.getOilType().lastIndexOf(' ') + 1);
+        cbType.setValue(type);
+        cbKind.setValue(kind);
         bindOil();
     }
 

@@ -94,6 +94,8 @@ public class AddVehicleController {
     }
 
     private void bindVehicle() {
+        cbMake.setValue(vehicleModel.getMake());
+        cbModel.setValue(vehicleModel.getModel());
         txtMake.textProperty().bindBidirectional(vehicleModel.makeProperty());
         txtModel.textProperty().bindBidirectional(vehicleModel.modelProperty());
         txtYear.textProperty().bindBidirectional(vehicleModel.yearProperty());
