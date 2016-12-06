@@ -268,7 +268,7 @@ public class MainController {
     }
 
     private void updateTable(Set<Customer> results) {
-        tblCustomers.getItems().setAll(FXCollections.observableArrayList(results
+        tblCustomers.setItems(FXCollections.observableArrayList(results
                 .stream()
                 .map(CustomerModel::new)
                 .collect(Collectors.toList())));
