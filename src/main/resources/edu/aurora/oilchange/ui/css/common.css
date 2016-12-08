@@ -10,6 +10,11 @@
     -fx-background-color: #ff8e8e;
 }
 
+.empty {
+    -fx-text-color: #ffffff;
+    -fx-background-color: #ffffff;
+}
+
 .table-row-cell:selected {
     -fx-background-color: darkgrey;
 }

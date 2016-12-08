@@ -47,8 +47,10 @@ public class AddOilController {
         // TODO: Use TextFormatter for validation
         cbType.getItems().setAll(OilType.stringValues());
         cbType.valueProperty().addListener((observable, oldValue, newValue) -> {
-            OilType value = OilType.fromString(newValue);
-            cbKind.getItems().setAll(OilType.oilMap.get(value).split(", "));
+            if (!newValue.equals("")) {
+                OilType value = OilType.fromString(newValue);
+                cbKind.getItems().setAll(OilType.oilMap.get(value).split(", "));
+            }
         });
 
         cbKind.valueProperty().addListener((observable, oldValue, newValue) -> {

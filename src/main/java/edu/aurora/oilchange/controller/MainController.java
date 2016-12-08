@@ -77,20 +77,24 @@ public class MainController {
         tblCustomers.setRowFactory(tv -> new TableRow<CustomerModel>() {
             @Override
             protected void updateItem(CustomerModel item, boolean empty) {
-                if (item != null) {
-                    super.updateItem(item, empty);
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    getStyleClass().removeAll("overdue", "warn");
+                    getStyleClass().add("empty");
+                } else {
                     Date today = new Date();
                     Date changeAt = getOilChangeDate(item.getDate());
                     int monthDiff = (changeAt.getYear() * 12 + changeAt.getMonth()) -
                             (today.getYear() * 12 + today.getMonth());
 
                     if (changeAt.compareTo(today) < 0) {
+                        getStyleClass().remove("empty");
                         getStyleClass().add("overdue");
                     } else if (monthDiff < 1) {
+                        getStyleClass().remove("empty");
                         getStyleClass().add("warn");
                     } else {
-                        getStyleClass().remove("overdue");
-                        getStyleClass().remove("warn");
+                        getStyleClass().removeAll("empty", "overdue", "warn");
                     }
                 }
             }
